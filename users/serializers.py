@@ -40,14 +40,27 @@ class LoginSerializer(serializers.Serializer):
         }
 
 
-class RegistrationSerializer(serializers.Serializer):
-    id_number        = serializers.CharField(max_length=10)
-    phone            = serializers.CharField(max_length=15)
-    user_code        = serializers.CharField(min_length=6, max_length=20)
-    password         = serializers.CharField(min_length=8, max_length=20, write_only=True)
-    confirm_password = serializers.CharField(min_length=8, max_length=20, write_only=True)
-    captcha          = serializers.CharField(max_length=6, write_only=True)
+class RegistrationSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True)
+    captcha          = serializers.CharField(write_only=True)
     captcha_id       = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        # 只序列化這些欄位
+        fields = [
+            "id_number",
+            "phone",
+            "user_code",
+            "password",
+            "confirm_password",
+            "captcha",
+            "captcha_id",
+        ]
+        extra_kwargs = {
+            "password": {"write_only": True, "min_length": 8, "max_length": 20},
+            "user_code": {"min_length": 6, "max_length": 20},
+        }
 
     def validate_id_number(self, v):
         if User.objects.filter(id_number=v).exists():
@@ -62,20 +75,23 @@ class RegistrationSerializer(serializers.Serializer):
     def validate_phone(self, v):
         if User.objects.filter(phone=v).exists():
             raise serializers.ValidationError("手機號碼已被使用")
-        # 你也可以加上手機格式檢查（Regex）
+        # 或者在這裡再加個格式檢查
         return v
 
     def validate(self, attrs):
-        # 1) 密碼一致性
+        # 密碼一致性
         if attrs["password"] != attrs["confirm_password"]:
-            raise serializers.ValidationError("兩次輸入的密碼不一致")
+            raise serializers.ValidationError(
+                {"confirm_password": "兩次輸入的密碼不一致"}
+            )
 
-        # 2) Captcha 驗證
+        # Captcha 驗證（簡單示範：不含過期邏輯）
         if not CaptchaStore.objects.filter(
-            hashkey=attrs["captcha_id"],
-            response=attrs["captcha"].strip()
+            hashkey  = attrs["captcha_id"],
+            response = attrs["captcha"].strip()
         ).exists():
-            raise serializers.ValidationError("驗證碼錯誤或已過期")
+            # 你也可以把它放到 non_field_errors：
+            raise serializers.ValidationError({"non_field_errors": ["驗證碼錯誤或已過期"]})
 
         return attrs
 
@@ -85,18 +101,13 @@ class RegistrationSerializer(serializers.Serializer):
         validated_data.pop("captcha")
         validated_data.pop("captcha_id")
 
-        # 用 create_user 會自動 hash password
+        # 交給 create_user 幫你 hash password
         user = User.objects.create_user(
             username   = validated_data["user_code"],
             password   = validated_data["password"],
             id_number  = validated_data["id_number"],
             user_code  = validated_data["user_code"],
             phone      = validated_data["phone"],
-            email      = validated_data.get("email",""),  # 若有 email 欄位
+            # email     = validated_data.get("email", ""),
         )
-
-        # TODO: 這裡可以呼叫 service 幫他自動建立三個帳戶(model accounts)
-        # from accounts.services import create_user_accounts
-        # create_user_accounts(user)
-
         return user

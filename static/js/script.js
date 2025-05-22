@@ -61,6 +61,49 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // ── Login 表單提交 ──
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        loginForm.addEventListener("submit", async e => {
+            e.preventDefault();
+            // HTML5 驗證
+            if (!loginForm.checkValidity()) {
+                loginForm.reportValidity();
+                return;
+            }
+            // 組裝 payload
+            const payload = {
+                id_number: document.getElementById("idNumber").value.trim().toUpperCase(),
+                user_code: document.getElementById("username").value.trim(),
+                password: document.getElementById("password").value,
+                captcha: document.getElementById("captcha").value.trim(),
+                captcha_id: document.getElementById("captchaKey").value,
+            };
+            try {
+                const res = await fetch("/api/v1/auth/login/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    localStorage.setItem("accessToken", data.access);
+                    localStorage.setItem("refreshToken", data.refresh);
+                    alert("登入成功！");
+                    window.location.href = "/dashboard/";  // 或者你要跳的页面
+                } else {
+                    const err = await res.json();
+                    alert(err.detail || "帳號或密碼錯誤");
+                    await refreshCaptcha();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("伺服器未回應，請稍後再試");
+            }
+        });
+    }
+
     const userLogin = document.getElementById("username");
     if (userLogin) {
         userLogin.addEventListener("input", e => {
@@ -138,9 +181,63 @@ document.addEventListener("DOMContentLoaded", () => {
                 : showFieldError(e.target, "請輸入 4 碼驗證碼");
         });
         // 提交
+        // regForm.addEventListener("submit", async e => {
+        //     e.preventDefault();
+        //     if (!validateForm()) return;
+        // });
+
         regForm.addEventListener("submit", async e => {
             e.preventDefault();
-            if (!validateForm()) return;
+            // 改用 HTML5 內建驗證
+            if (!regForm.checkValidity()) {
+                // 如果欄位有問題，就叫瀏覽器顯示錯誤提示
+                regForm.reportValidity();
+                return;
+            }
+
+            // 組成要送到後端的資料
+            const payload = {
+                id_number: regForm.querySelector('[name=id_number]').value.trim().toUpperCase(),
+                phone: regForm.querySelector('[name=phone]').value.trim(),
+                user_code: regForm.querySelector('[name=user_code]').value.trim(),
+                password: regForm.querySelector('[name=password]').value,
+                confirm_password: regForm.querySelector('[name=confirm_password]').value,
+                captcha: regForm.querySelector('[name=captcha]').value.trim(),
+                captcha_id: regForm.querySelector('#captchaKey').value,
+            };
+
+            try {
+                const res = await fetch("/api/v1/auth/register/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                if (res.ok) {
+                    alert("註冊成功！即將跳轉到登入頁");
+                    window.location.href = "/login/";
+                    return;
+                }
+
+                let errMsg = `伺服器錯誤 (${res.status})`;
+                if (res.headers.get("content-type")?.includes("application/json")) {
+                    const err = await res.json();
+                    errMsg = err.detail
+                        || err.non_field_errors?.[0]
+                        || err.id_number?.[0]
+                        || err.user_code?.[0]
+                        || err.phone?.[0]
+                        || err.password?.[0]
+                        || err.confirm_password?.[0]
+                        || err.captcha?.[0]
+                        || errMsg;
+                }
+                alert(errMsg);
+                await refreshCaptcha();
+            } catch (error) {
+                console.error(error);
+                alert("伺服器未回應，請稍後再試");
+            }
         });
     }
 
