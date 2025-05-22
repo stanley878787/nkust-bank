@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+
+    <title>高科銀行</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                            fill="currentColor"></path>
+                    </svg>
+                </div>
+                <h2 class="brand-name">NKUST Bank</h2>
+            </div>
+
+            <div class="nav-container">
+                <a href="{% url 'login_page' %}" class="btn-link">
+                    <button class="btn btn-secondary btn-md">
+                        <span class="btn-text">Log in</span>
+                    </button>
+                </a>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="content-container form-container">
+                <h2 class="heading-lg">申請網路銀行</h2>
+                <p class="login-subtitle">填寫以下資訊以建立您的個人帳戶</p>
+
+                <form id="registerForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">身分證字號 <span style="color: #e53e3e">*</span></p>
+                            <input id="idNumber" name="id_number" class="form-input input-light" placeholder="請輸入身份證字號" type="text"
+                                maxlength="10" required />
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">行動電話 <span style="color: #e53e3e">*</span></p>
+                            <input name="phone" class="form-input input-light" placeholder="請輸入行動電話號碼" type="tel"
+                                maxlength="10" required />
+                            <div class="error-message"></div>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">用戶代碼 <span style="color: #e53e3e">*</span></p>
+                            <input name="user_code" class="form-input input-light" placeholder="請輸入用戶代碼" type="text"
+                                minlength="6" maxlength="20" required />
+                            <div class="error-message"></div>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">用戶密碼 <span style="color: #e53e3e">*</span></p>
+                            <div class="input-wrapper">
+                                <input id="password" name="password" class="form-input input-light"
+                                    placeholder="請輸入用戶密碼" type="password" minlength="8" maxlength="20" required />
+                                <button type="button" class="toggle-visibility" data-target="password">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/10812/10812267.png"
+                                        alt="顯示／隱藏密碼" />
+                                </button>
+                            </div>
+                            <div class="error-message"></div>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">確認密碼 <span style="color: #e53e3e">*</span></p>
+
+                            <div class="input-wrapper">
+                                <input id="confirm_password" name="confirm_password" class="form-input input-light"
+                                    placeholder="再次輸入用戶密碼" type="password" minlength="8" maxlength="20" required />
+                                <button type="button" class="toggle-visibility" data-target="confirm_password">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/10812/10812267.png"
+                                        alt="顯示／隱藏密碼" />
+                                </button>
+                            </div>
+                            <div class="error-message"></div>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <p class="label-text">
+                                驗證碼 <span style="color: #e53e3e">*</span>
+                            </p>
+                            <div class="captcha-container">
+                                <!-- 使用者輸入 -->
+                                <input name="captcha" id="captcha" class="form-input captcha-input" placeholder="請輸入驗證碼"
+                                    type="text" maxlength="4" required />
+                                <!-- 後端產生的圖片 -->
+                                <img id="captchaImage" class="captcha-image" alt="點擊換一張驗證碼" />
+                                <!-- 隱藏欄位存 hashkey -->
+                                <input type="hidden" id="captchaKey" name="captcha_id" />
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="submit" class="btn btn-primary btn-lg" style="flex: 1">
+                            <span class="btn-text">註冊</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

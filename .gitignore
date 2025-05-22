@@ -1,0 +1,68 @@
+# ─── Byte-compiled / optimized / DLL files ────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ─── C extensions ──────────────────────────────────────────────────────────────
+*.so
+
+# ─── Distribution / packaging ──────────────────────────────────────────────────
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# ─── Installer logs ───────────────────────────────────────────────────────────
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ─── Unit test / coverage reports ─────────────────────────────────────────────
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ─── Django Stuff ────────────────────────────────────────────────────────────
+*.log
+local_settings.py         # 如果你有放 local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/                    # 如果你有放上傳檔案
+/staticfiles/             # collectstatic 輸出的資料夾（若有設定）
+# static/                 # **不要**把專案裡的原始 static 資料夾排除，僅忽略收集後的 staticfiles
+
+# ─── Environment Files ────────────────────────────────────────────────────────
+.env                       # 放 environment variables 的檔案
+*.env
+
+# ─── IDE / Editor ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ─── OS generated files ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
