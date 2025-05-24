@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import LoginPage, RegistrationPage
+from users.views import LoginPage, RegistrationPage, DashboardPage
 
 urlpatterns = [
     # 根路由 顯示登入頁
@@ -26,7 +26,10 @@ urlpatterns = [
     path('login/', LoginPage.as_view(), name='login_page'),
 
     # 註冊頁面
-    path("register/", RegistrationPage.as_view(), name="register_page"),
+    path('register/', RegistrationPage.as_view(), name="register_page"),
+
+    # 首頁
+    path('dashboard/', DashboardPage.as_view(), name="dashboard_page"),
 
     # 管理後台
     path('admin/', admin.site.urls),

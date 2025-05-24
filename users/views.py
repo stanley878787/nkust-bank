@@ -53,3 +53,11 @@ class RegistrationAPIView(APIView):
                 "phone":     user.phone,
             }
         }, status=status.HTTP_201_CREATED)
+
+
+class DashboardPage(TemplateView):
+    """
+    根路由／login/ 頁面的 View
+    會 render templates/Dashboard.html
+    """
+    template_name = "Dashboard.html"
