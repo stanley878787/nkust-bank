@@ -3,6 +3,131 @@
 const openEyeUrl = "https://cdn-icons-png.flaticon.com/512/159/159604.png";
 const closedEyeUrl = "https://cdn-icons-png.flaticon.com/512/10812/10812267.png";
 document.addEventListener("DOMContentLoaded", () => {
+
+    const submitBtn = document.getElementById("submitBtn");
+    const phoneInput = document.getElementById("phone");
+    const phoneError = document.getElementById("phone-error");
+    const otpSection = document.getElementById("otp-section");
+    const otpInput = document.getElementById("otp");
+    const otpError = document.getElementById("otp-error");
+
+    if (submitBtn && phoneInput && phoneError && otpSection && otpInput && otpError) {
+        // 都不為 null，才進行事件綁定
+        let formattedPhone = "";
+        let step = 1;
+
+        console.log("857");
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === name + "=") {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie("csrftoken");
+
+        function normalizePhone(input) {
+            let v = input.trim().replace(/\D/g, "");
+            if (v.startsWith("0")) v = v.substring(1);
+            return "+886" + v;
+        }
+
+        submitBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            if (step === 1) {
+                phoneError.textContent = "";
+                const rawPhone = phoneInput.value;
+                if (!/^09\d{8}$/.test(rawPhone)) {
+                    phoneError.textContent = "請輸入有效的手機號碼 (例：0912345678)";
+                    return;
+                }
+
+                formattedPhone = normalizePhone(rawPhone);
+
+                fetch("/api/v1/auth/send-otp/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: JSON.stringify({ phone: formattedPhone }),
+                })
+                .then(resp => {
+                    // 先把 HTTP 狀態和狀態文字都印出來
+                    console.log("send-otp response status:", resp.status, resp.statusText);
+                    return resp.json().then(data => ({ status: resp.status, data }));
+                })
+                .then(({ status, data }) => {
+                    console.log("send-otp JSON:", data);
+                    if (status === 200 && data.status === "pending") {
+                        step = 2;
+                        otpSection.style.display = "block";
+                        submitBtn.querySelector(".btn-text").textContent = "驗證碼驗證";
+                    } else {
+                        // 如果後端有回傳 error 或其他訊息，都把它印出來
+                        console.error("send-otp not pending:", data);
+                        phoneError.textContent = data.error || data.status || "無法發送驗證碼，請稍後再試。";
+                    }
+                })
+                .catch(err => {
+                    // 印出錯誤物件，包含 stack trace
+                    console.error("send-otp fetch failed:", err);
+                    phoneError.textContent = "伺服器錯誤，請稍後再試。";
+                });
+
+            } else if (step === 2) {
+                otpError.style.display = "none";
+                otpError.textContent = "";
+
+                const code = otpInput.value.trim();
+                if (!/^\d{6}$/.test(code)) {
+                    otpError.style.display = "block";
+                    otpError.textContent = "請輸入 6 位數驗證碼";
+                    return;
+                }
+
+                fetch("/api/v1/auth/verify-otp/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: JSON.stringify({ phone: formattedPhone, code: code }),
+                })
+                .then(resp => {
+                    console.log("verify-otp response status:", resp.status, resp.statusText);
+                    return resp.json().then(data => ({ status: resp.status, data }));
+                })
+                .then(({ status, data }) => {
+                    console.log("verify-otp JSON:", data);
+                    if (status === 200 && data.status === "approved") {
+                        alert("驗證成功");
+                    } else if ( data.status === "pending") {
+                        otpError.style.display = "block";
+                        otpError.textContent = data.error || data.status || "驗證失敗，請確認驗證碼正確。";
+                    } {
+                        console.error("verify-otp not approved:", data);
+                        otpError.style.display = "block";
+                        otpError.textContent = data.error || data.status || "驗證失敗，請確認驗證碼正確。";
+                    }
+                })
+                .catch(err => {
+                    console.error("verify-otp fetch failed:", err);
+                    otpError.style.display = "block";
+                    otpError.textContent = "伺服器錯誤，請稍後再試。";
+                });
+            }
+        });
+    }
+
     const $ = (s) => document.querySelector(s);
 
     // 元素

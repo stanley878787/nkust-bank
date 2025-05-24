@@ -8,3 +8,6 @@ celery
 redis
 pytest
 pytest-django
+django-cors-headers
+django-simple-captcha
+twilio

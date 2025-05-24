@@ -124,7 +124,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"         # collectstatic 收集目錄
 MEDIA_URL  = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-STATICFILES_DIRS = [ BASE_DIR / "static" ] 
+STATICFILES_DIRS = [ BASE_DIR / "static" ]
 
 # --------------------- Django REST Framework ------------------- #
 REST_FRAMEWORK = {
@@ -185,6 +185,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # ----------------------- #
 AUTHENTICATION_BACKENDS = [
-    "users.auth_backend.IDNumberBackend",          
-    "django.contrib.auth.backends.ModelBackend",   
+    "users.auth_backend.IDNumberBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
+
+
+TWILIO_ACCOUNT_SID = env("TWILIO_ACCOUNT_SID")
+TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN")
+TWILIO_VERIFY_SERVICE_SID = env("TWILIO_VERIFY_SERVICE_SID")
