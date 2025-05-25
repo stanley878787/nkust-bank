@@ -5,6 +5,7 @@ from .views import (
     RegistrationAPIView,
     send_otp,
     verify_otp,
+    reset_password
 )
 
 app_name = "users"
@@ -21,4 +22,8 @@ urlpatterns = [
     # 驗證 OTP 是否正確
     # POST /api/v1/auth/verify-otp/ → 需要傳 JSON { "phone": "+8869xxxxxxxx", "code": "123456" }
     path('auth/verify-otp/', verify_otp, name='verify_otp'),
+
+    # POST /api/v1/auth/reset-password/ → 需要傳 JSON { "phone": "+8869xxxxxxxx", "new_password": "...", "confirm_password": "..." }
+    path('auth/reset-password/', reset_password, name='reset_password'),
+
 ]

@@ -2,6 +2,33 @@
 
 const openEyeUrl = "https://cdn-icons-png.flaticon.com/512/159/159604.png";
 const closedEyeUrl = "https://cdn-icons-png.flaticon.com/512/10812/10812267.png";
+
+function showToast(message) {
+    // 建立 <div class="toast">message</div>
+    const toast = document.createElement("div");
+    toast.classList.add("toast");
+    toast.textContent = message;
+
+    // 加到 body 裡
+    document.body.appendChild(toast);
+
+    // 強制重繪，確保下面加 .show 才會觸發 transition
+    requestAnimationFrame(() => {
+        toast.classList.add("show");
+    });
+
+    // 3 秒後把 .show 拿掉，觸發淡出
+    setTimeout(() => {
+        toast.classList.remove("show");
+
+        // 等到淡出動畫結束才從 DOM 裡移除
+        toast.addEventListener("transitionend", () => {
+            toast.remove();
+        });
+    }, 3000);
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const submitBtn = document.getElementById("submitBtn");
@@ -10,13 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const otpSection = document.getElementById("otp-section");
     const otpInput = document.getElementById("otp");
     const otpError = document.getElementById("otp-error");
+    const passwordSection = document.getElementById("password-section");
+    const newPasswordInput = document.getElementById("new_password");
+    const confirmPasswordInput = document.getElementById("confirm_password");
+    const passwordError = document.getElementById("password-error");
 
-    if (submitBtn && phoneInput && phoneError && otpSection && otpInput && otpError) {
-        // 都不為 null，才進行事件綁定
+    if (submitBtn && phoneInput && phoneError && otpSection && otpInput && otpError && passwordSection) {
         let formattedPhone = "";
         let step = 1;
-
-        console.log("857");
 
         function getCookie(name) {
             let cookieValue = null;
@@ -40,8 +68,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return "+886" + v;
         }
 
-        submitBtn.addEventListener("click", function (e) {
+        submitBtn.addEventListener("click", function(e) {
             e.preventDefault();
+
+            // === STEP 1: 發送 OTP 前，先檢查帳號是否存在 ===
             if (step === 1) {
                 phoneError.textContent = "";
                 const rawPhone = phoneInput.value;
@@ -61,8 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     body: JSON.stringify({ phone: formattedPhone }),
                 })
                 .then(resp => {
-                    // 先把 HTTP 狀態和狀態文字都印出來
-                    console.log("send-otp response status:", resp.status, resp.statusText);
+                    // 如果後端回 404，表示此 phone 不存在
+                    if (resp.status === 404) {
+                        return resp.json().then(data => {
+                            throw { clientError: true, message: data.error || "此手機號碼未註冊" };
+                        });
+                    }
+                    // 正常流程：讀 JSON
                     return resp.json().then(data => ({ status: resp.status, data }));
                 })
                 .then(({ status, data }) => {
@@ -72,17 +107,24 @@ document.addEventListener("DOMContentLoaded", () => {
                         otpSection.style.display = "block";
                         submitBtn.querySelector(".btn-text").textContent = "驗證碼驗證";
                     } else {
-                        // 如果後端有回傳 error 或其他訊息，都把它印出來
-                        console.error("send-otp not pending:", data);
-                        phoneError.textContent = data.error || data.status || "無法發送驗證碼，請稍後再試。";
+                        // 其他錯誤（可能是 Twilio 回來的錯誤）
+                        phoneError.textContent = "無法發送驗證碼，請稍後再試。";
                     }
                 })
                 .catch(err => {
-                    // 印出錯誤物件，包含 stack trace
-                    console.error("send-otp fetch failed:", err);
-                    phoneError.textContent = "伺服器錯誤，請稍後再試。";
+                    if (err.clientError) {
+                        // 這裡表示我們特別從 404 拋出的「此手機號碼未註冊」
+                        showToast(err.message);
+                        phoneInput.value = "";            // 清空輸入框
+                        phoneError.textContent = "";      // 清空紅字提示
+                        phoneInput.focus();
+                    } else {
+                        console.error("send-otp fetch failed:", err);
+                        phoneError.textContent = "伺服器錯誤，請稍後再試。";
+                    }
                 });
 
+            // === STEP 2: 驗證 OTP (同之前) ===
             } else if (step === 2) {
                 otpError.style.display = "none";
                 otpError.textContent = "";
@@ -109,20 +151,75 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(({ status, data }) => {
                     console.log("verify-otp JSON:", data);
                     if (status === 200 && data.status === "approved") {
-                        alert("驗證成功");
-                    } else if ( data.status === "pending") {
-                        otpError.style.display = "block";
-                        otpError.textContent = data.error || data.status || "驗證失敗，請確認驗證碼正確。";
-                    } {
+                        showToast("驗證成功，請輸入新密碼");
+                        step = 3;
+                        document.getElementById("phone-section").style.display = "none";
+                        otpSection.style.display = "none";
+                        passwordSection.style.display = "block";
+                        submitBtn.querySelector(".btn-text").textContent = "確認更改密碼";
+                    } else {
                         console.error("verify-otp not approved:", data);
                         otpError.style.display = "block";
-                        otpError.textContent = data.error || data.status || "驗證失敗，請確認驗證碼正確。";
+                        otpError.textContent = "驗證失敗，請確認驗證碼正確。";
                     }
                 })
                 .catch(err => {
                     console.error("verify-otp fetch failed:", err);
                     otpError.style.display = "block";
                     otpError.textContent = "伺服器錯誤，請稍後再試。";
+                });
+
+            // === STEP 3: 重設密碼 (同之前) ===
+            } else if (step === 3) {
+                passwordError.style.display = "none";
+                passwordError.textContent = "";
+
+                const newPwd = newPasswordInput.value.trim();
+                const confirmPwd = confirmPasswordInput.value.trim();
+                if (!newPwd || !confirmPwd) {
+                    passwordError.style.display = "block";
+                    passwordError.textContent = "請填寫新密碼及確認密碼。";
+                    return;
+                }
+                if (newPwd !== confirmPwd) {
+                    passwordError.style.display = "block";
+                    passwordError.textContent = "兩次輸入的密碼不相符。";
+                    return;
+                }
+
+                fetch("/api/v1/auth/reset-password/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: JSON.stringify({
+                        phone: formattedPhone,
+                        new_password: newPwd,
+                        confirm_password: confirmPwd
+                    }),
+                })
+                .then(resp => {
+                    console.log("reset-password response status:", resp.status, resp.statusText);
+                    return resp.json().then(data => ({ status: resp.status, data }));
+                })
+                .then(({ status, data }) => {
+                    console.log("reset-password JSON:", data);
+                    if (status === 200 && data.status === "success") {
+                        showToast("密碼重設成功，請使用新密碼登入。");
+                        setTimeout(() => {
+                            window.location.href = "/login/";
+                        }, 3000);
+                    } else {
+                        console.error("reset-password failed:", data);
+                        passwordError.style.display = "block";
+                        passwordError.textContent = "重設密碼失敗，請稍後再試。";
+                    }
+                })
+                .catch(err => {
+                    console.error("reset-password fetch failed:", err);
+                    passwordError.style.display = "block";
+                    passwordError.textContent = "伺服器錯誤，請稍後再試。";
                 });
             }
         });
@@ -215,11 +312,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     const data = await res.json();
                     localStorage.setItem("accessToken", data.access);
                     localStorage.setItem("refreshToken", data.refresh);
-                    alert("登入成功！");
-                    window.location.href = "/dashboard/";  // 或者你要跳的页面
+                    showToast("登入成功！");
+                    setTimeout(() => {
+                        window.location.href = "/dashboard/";
+                    }, 3000);
                 } else {
                     const err = await res.json();
-                    alert(err.detail || "帳號或密碼錯誤");
+                    showToast("帳號或密碼錯誤");
                     await refreshCaptcha();
                 }
             } catch (err) {
@@ -339,8 +438,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (res.ok) {
-                    alert("註冊成功！即將跳轉到登入頁");
-                    window.location.href = "/login/";
+                    showToast("註冊成功！即將跳轉到登入頁");
+                    setTimeout(() => {
+                        window.location.href = "/login/";
+                    }, 3000);
                     return;
                 }
 

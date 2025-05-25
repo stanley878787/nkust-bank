@@ -599,3 +599,30 @@ header {
   gap: 0.75rem;
   padding: 1rem;
 }
+
+
+/* Toast 基本樣式 */
+
+.toast {
+  position: fixed;
+  top: 20px;              /* 垂直靠上 20px */
+  left: 50%;              /* 水平置中 */
+  transform: translateX(-50%) translateY(-20px); /* 初始往上偏移 20px，等待 .show 時回到 y=0 */
+  max-width: 300px;
+  background-color: #2f855a;  /* 中階沉穩綠（參考 Tailwind green-600） */
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* 顯示時加上 .show */
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* 取消往上偏移，直接顯示在 top:20px */
+}
