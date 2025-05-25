@@ -1,11 +1,14 @@
 Django>=4.2,<5.0
 djangorestframework
-mysqlclient
-django-environ
 djangorestframework-simplejwt
 drf-spectacular
+django-environ
+django-cors-headers
+mysqlclient
 celery
 redis
+Pillow
+django-simple-captcha
 pytest
 pytest-django
 django-cors-headers

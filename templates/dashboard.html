@@ -1,288 +1,129 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
 
-    <title>高科銀行</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-    <link rel="stylesheet" href="{% static 'style/dashboard.css' %}" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- <script type="text/javascript" src="js/script.js"></script> -->
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="logo-container">
-          <div class="logo">
-            <svg
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <h2 class="brand-name">NKUST Bank</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+
+  <title>高科銀行</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <link rel="stylesheet" href="{% static 'style/dashboard.css' %}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="{% static 'js/dashboard.js' %}" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <div class="logo">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+              fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 class="brand-name">NKUST Bank</h2>
+      </div>
+
+      <div class="nav-container">
+        <div class="main-nav">
+          <a class="nav-link" href="#">帳務總覽</a>
+          <a class="nav-link" href="#">轉帳</a>
+          <a class="nav-link" href="#">投資</a>
+          <a class="nav-link" href="#">明細查詢</a>
+          <a class="nav-link" href="#">個人資料</a>
+          <a href="#" id="logoutBtn" class="btn-link">
+            <button class="btn btn-secondary btn-md">
+              <span class="btn-text">Log Out</span>
+            </button>
+          </a>
         </div>
 
-        <div class="nav-container">
-          <div class="main-nav">
-            <a class="nav-link" href="#">帳務總覽</a>
-            <a class="nav-link" href="#">轉帳</a>
-            <a class="nav-link" href="#">投資</a>
-            <a class="nav-link" href="#">明細查詢</a>
-            <a class="nav-link" href="#">個人資料</a>
-            <a href="SignUp.html" class="btn-link">
-              <button class="btn btn-secondary btn-md">
-                <span class="btn-text">Log Out</span>
-              </button>
-            </a>
-          </div>
-
-          <div
-            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full"
-            style="
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full" style="
               width: 2.5rem;
               height: 2.5rem;
               background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Po79iYR7-ksZ7A9PaurSHsjyFb0bDUM7Wrq__6odpyUHIy4eEOfMBDFF9W-ppcZbn9tJQ9wnsGUGfOwQJbYeUnZzLpastyCXna17C_SwtvQAvKo1Q8t8uS8tHrowAL5G34rGkvH7E12kjlNzjyu9ZdAw8TLrX1O6H36epF75Weawl2kxBE1yY0ctRs620JhHAwStaBftHyH0vWt4ssjoS77vzgCGVCISgzBR2GssKZ1C68SFZyqDcNaCkwPpbRPbABmlpf5Vp8');
-            "
-          ></div>
+            "></div>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <div class="content-container">
+        <div class="flex-row">
+          <p class="heading-xl">帳務總覽</p>
         </div>
-      </header>
 
-      <div class="main-content">
-        <div class="content-container">
-          <div class="flex-row">
-            <p class="heading-xl">帳務總覽</p>
+        <h2 class="heading-md">存款總額</h2>
+        <div class="stats-container">
+          <div class="stat-card" data-key="ntd_total">
+            <p class="stat-label">台幣帳戶</p>
+            <p class="stat-value">--</p> <!-- ★ 預設留 -- -->
           </div>
-
-          <h2 class="heading-md">存款總額</h2>
-          <div class="stats-container">
-            <div class="stat-card">
-              <p class="stat-label">台幣帳戶</p>
-              <p class="stat-value">$1,234,567</p>
-            </div>
-            <div class="stat-card">
-              <p class="stat-label">外幣帳戶</p>
-              <p class="stat-value">$876,543</p>
-            </div>
-            <div class="stat-card">
-              <p class="stat-label">投資</p>
-              <p class="stat-value">$543,210</p>
-            </div>
+          <div class="stat-card" data-key="fx_total">
+            <p class="stat-label">外幣帳戶</p>
+            <p class="stat-value">--</p>
           </div>
-
-          <div class="account-section">
-            <div class="account-container">
-              <div class="tab-title">
-                <p class="title-text">台幣帳戶</p>
-              </div>
-              <div>
-                <div class="stats-container">
-                  <!-- <div class="chart-container">
-                    <p class="chart-title">NTD</p>
-                    <p class="chart-value">$1,234,567</p>
-                    <p class="chart-subtitle">Total</p>
-                  </div> -->
-                </div>
-                <!-- <h2 class="heading-md">Accounts</h2> -->
-                <div class="account-list-item">
-                  <div class="account-info">
-                    <div class="account-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24px"
-                        height="24px"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <path
-                          d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="account-details">
-                      <p class="account-name">活期存款</p>
-                      <p class="account-type">數位存款帳戶</p>
-                    </div>
-                  </div>
-                  <div class="account-amount">
-                    <p class="account-balance">$1,234,567</p>
-                  </div>
-                </div>
-
-                <div class="account-list-item">
-                  <div class="account-info">
-                    <div class="account-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24px"
-                        height="24px"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <path
-                          d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="account-details">
-                      <p class="account-name">定期存款</p>
-                      <p class="account-type"></p>
-                    </div>
-                  </div>
-                  <div class="account-amount">
-                    <p class="account-balance">$876,543</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="account-container">
-              <div class="tab-title">
-                <p class="title-text">外幣存款</p>
-              </div>
-              <div>
-                <div class="stats-container">
-                  <!-- <div class="chart-container">
-                    <p class="chart-title">USD</p>
-                    <p class="chart-value">$4,567</p>
-                    <p class="chart-subtitle">Total</p>
-                  </div> -->
-                </div>
-                <!-- <h2 class="heading-md">Accounts</h2> -->
-
-                <div class="account-list-item">
-                  <div class="account-info">
-                    <div class="account-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24px"
-                        height="24px"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <path
-                          d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="account-details">
-                      <p class="account-name">USD 活期存款</p>
-                      <p class="account-type">外幣帳戶（美元）</p>
-                    </div>
-                  </div>
-                  <div class="account-amount">
-                    <p class="account-balance">US$12,345.67</p>
-                  </div>
-                </div>
-
-                <div class="account-list-item">
-                  <div class="account-info">
-                    <div class="account-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24px"
-                        height="24px"
-                        fill="currentColor"
-                        viewBox="0 0 256 256"
-                      >
-                        <path
-                          d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
-                        ></path>
-                      </svg>
-                    </div>
-                    <div class="account-details">
-                      <p class="account-name">JPY 定存</p>
-                      <p class="account-type">外幣定存（日圓）</p>
-                    </div>
-                  </div>
-                  <div class="account-amount">
-                    <p class="account-balance">¥1,000,000</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="stat-card" data-key="inv_total">
+            <p class="stat-label">投資</p>
+            <p class="stat-value">--</p>
           </div>
+        </div>
 
-          <div class="investment-container">
+
+        <div class="account-section">
+          <!-- 台幣帳戶 -->
+          <div class="account-container" data-cat="ntd">
             <div class="tab-title">
-              <p class="title-text">投資</p>
+              <p class="title-text">台幣帳戶</p>
             </div>
-            <div>
-              <div class="stats-container">
-                <!-- <div class="chart-container">
-                <p class="chart-title">NTD</p>
-                <p class="chart-value">$1,000,000</p>
-                <p class="chart-subtitle">Total</p>
-              </div> -->
-              </div>
-              <!-- <h2 class="heading-md">Accounts</h2> -->
-              <div class="account-list-item">
-                <div class="account-info">
-                  <div class="account-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                    >
-                      <path
-                        d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm-96,72a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H136A8,8,0,0,1,128,120Zm-40,32a8,8,0,0,1,8-8h104a8,8,0,0,1,0,16H96A8,8,0,0,1,88,152Zm-32-32a8,8,0,0,1,8-8H96a8,8,0,0,1,0,16H64A8,8,0,0,1,56,120Zm-16,32a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H48A8,8,0,0,1,40,152Z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="account-details">
-                    <p class="account-name">股票投資帳戶</p>
-                    <p class="account-type">證券交易平台</p>
-                  </div>
-                </div>
-                <div class="account-amount">
-                  <p class="account-balance">$2,345,678</p>
-                </div>
-              </div>
+            <ul class="account-list"></ul>
+          </div>
 
-              <div class="account-list-item">
-                <div class="account-info">
-                  <div class="account-icon">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                    >
-                      <path
-                        d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48ZM208,168H168a8,8,0,0,1,0-16h40a8,8,0,0,1,0,16Zm-64,0H120a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16Z"
-                      />
-                    </svg>
-                  </div>
-                  <div class="account-details">
-                    <p class="account-name">基金帳戶</p>
-                    <p class="account-type">投資型保單</p>
-                  </div>
-                </div>
-                <div class="account-amount">
-                  <p class="account-balance">$1,234,000</p>
-                </div>
-              </div>
+          <!-- 外幣帳戶 -->
+          <div class="account-container" data-cat="fx">
+            <div class="tab-title">
+              <p class="title-text">外幣存款</p>
             </div>
+            <ul class="account-list"></ul>
           </div>
         </div>
+
+        <div class="investment-container account-container" data-cat="inv">
+          <div class="tab-title">
+            <p class="title-text">投資</p>
+          </div>
+          <ul class="account-list"></ul>
+        </div>
+
+        <template id="account-item-tpl">
+          <li class="account-list-item">
+            <div class="account-info">
+              <div class="account-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                  viewBox="0 0 256 256">
+                  <path
+                    d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z">
+                  </path>
+                </svg>
+              </div>
+              <div class="account-details">
+                <p class="account-name"></p>
+                <p class="account-type"></p>
+              </div>
+            </div>
+            <div class="account-amount">
+              <p class="account-balance"></p>
+            </div>
+          </li>
+        </template>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

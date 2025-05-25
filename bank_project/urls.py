@@ -39,6 +39,8 @@ urlpatterns = [
 
     # 使用者相關 API（含 POST /auth/login/）
     path('api/v1/', include('users.urls', namespace='users')),
+    
+    path("api/v1/", include("accounts.urls")),
 
     # Captcha 圖形驗證碼
     path('captcha/', include('captcha.urls')),
