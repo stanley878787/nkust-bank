@@ -8,6 +8,7 @@ class Account(models.Model):
         ('fx',  '外幣存款'),
         ('inv', '投資'),
     ]
+    account_no = models.CharField(max_length=14, unique=True, null=False, blank=False)
     user       = models.ForeignKey(settings.AUTH_USER_MODEL,
                                    on_delete=models.CASCADE,
                                    related_name='accounts')

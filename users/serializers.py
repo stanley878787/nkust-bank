@@ -4,6 +4,7 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from captcha.models import CaptchaStore
+from accounts.services import create_user_accounts
 # from users.models import User
 
 User = get_user_model()
@@ -110,4 +111,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             phone      = validated_data["phone"],
             # email     = validated_data.get("email", ""),
         )
+        # 🎁 自動開戶並入帳
+        create_user_accounts(user)  
+
         return user

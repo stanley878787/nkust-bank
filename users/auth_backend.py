@@ -7,7 +7,7 @@ class IDNumberBackend(ModelBackend):
     讓使用者用 id_number + user_code + password 登入。
     """
     def authenticate(self, request, id_number=None, user_code=None, password=None, **kwargs):
-        print("🔍 authenticate() got:", id_number, user_code, password)
+        # print("🔍 authenticate() got:", id_number, user_code, password)
         if id_number is None or user_code is None or password is None:
             return None
         try:
