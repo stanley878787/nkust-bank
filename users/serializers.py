@@ -10,31 +10,51 @@ from accounts.services import create_user_accounts
 User = get_user_model()
 
 class LoginSerializer(serializers.Serializer):
-    id_number = serializers.CharField(max_length=10)
-    user_code = serializers.CharField(max_length=20)
-    password  = serializers.CharField(write_only=True)
+    id_number   = serializers.CharField(max_length=10)
+    user_code   = serializers.CharField(max_length=20)
+    password    = serializers.CharField(write_only=True)
+    captcha     = serializers.CharField(write_only=True)
+    captcha_id  = serializers.CharField(write_only=True)
 
     def validate(self, attrs):
-        request = self.context.get("request") 
+
+        errors = []
+
+        # ----- 帳密認證 -----
         user = authenticate(
-            request=request,
+            request=self.context.get("request"),
             id_number=attrs["id_number"],
             user_code=attrs["user_code"],
             password=attrs["password"],
         )
         if user is None:
-            raise serializers.ValidationError("帳號或密碼錯誤")
-            # raise serializers.ValidationError({"detail": "帳號或密碼錯誤"})
-        if not user.is_active:
-            raise serializers.ValidationError("帳號已停用")
-        
+            errors.append("帳號或密碼錯誤")
+        elif not user.is_active:
+            errors.append("帳號已停用")
+
+        # ----- Captcha 驗證 -----
+        hashkey  = attrs.get("captcha_id")
+        response = attrs.get("captcha", "").strip()
+        if not CaptchaStore.objects.filter(
+            hashkey=hashkey,
+            response__iexact=response
+        ).exists():
+            errors.append("驗證碼錯誤或已過期")
+
+        # 如果有任何錯誤，一次回傳給前端
+        if errors:
+            raise serializers.ValidationError(
+                {"non_field_errors": errors}
+            )
+
+        # 都通過才走到這裡：產生 token 並回傳 user 資訊
         refresh = RefreshToken.for_user(user)
         return {
-            "access": str(refresh.access_token),
+            "access":  str(refresh.access_token),
             "refresh": str(refresh),
             "user": {
-                "id": user.id,
-                "username": user.username,
+                "id":        user.id,
+                "username":  user.username,
                 "id_number": user.id_number,
                 "user_code": user.user_code,
             },
@@ -112,6 +132,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
             # email     = validated_data.get("email", ""),
         )
         # 🎁 自動開戶並入帳
-        create_user_accounts(user)  
+        create_user_accounts(user)
 
         return user

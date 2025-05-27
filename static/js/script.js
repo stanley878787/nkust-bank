@@ -3,8 +3,9 @@
 const openEyeUrl = "https://cdn-icons-png.flaticon.com/512/159/159604.png";
 const closedEyeUrl = "https://cdn-icons-png.flaticon.com/512/10812/10812267.png";
 
+// 這邊是浮動視窗的JS設定
 function showToast(message) {
-    // 建立 <div class="toast">message</div>
+
     const toast = document.createElement("div");
     toast.classList.add("toast");
     toast.textContent = message;
@@ -25,12 +26,13 @@ function showToast(message) {
         toast.addEventListener("transitionend", () => {
             toast.remove();
         });
-    }, 3000);
+    }, 2000);
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    // 忘記密碼相關設定
     const submitBtn = document.getElementById("submitBtn");
     const phoneInput = document.getElementById("phone");
     const phoneError = document.getElementById("phone-error");
@@ -155,6 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         step = 3;
                         document.getElementById("phone-section").style.display = "none";
                         otpSection.style.display = "none";
+                        document.querySelector(".login-subtitle").textContent = "請輸入您的新密碼";
                         passwordSection.style.display = "block";
                         submitBtn.querySelector(".btn-text").textContent = "確認更改密碼";
                     } else {
@@ -209,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("密碼重設成功，請使用新密碼登入。");
                         setTimeout(() => {
                             window.location.href = "/login/";
-                        }, 3000);
+                        }, 2000);
                     } else {
                         console.error("reset-password failed:", data);
                         passwordError.style.display = "block";
@@ -287,6 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ── Login 表單提交 ──
     const loginForm = document.getElementById("loginForm");
     if (loginForm) {
+
         loginForm.addEventListener("submit", async e => {
             e.preventDefault();
             // HTML5 驗證
@@ -315,10 +319,39 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("登入成功！");
                     setTimeout(() => {
                         window.location.href = "/dashboard/";
-                    }, 3000);
+                    }, 2000);
+
                 } else {
-                    const err = await res.json();
-                    showToast("帳號或密碼錯誤");
+                    // const err = await res.json();
+                    // showToast("帳號或密碼錯誤");
+                    // await refreshCaptcha();
+
+                    let errMsg = `伺服器錯誤（${res.status}）`;
+
+                    if (res.headers.get("content-type")?.includes("application/json")) {
+                        const err = await res.json();
+                        // 1. 把所有可能的欄位錯誤都收集到一個陣列
+                        const errors = [];
+
+                        if (err.detail) {
+                            errors.push(err.detail);
+                        }
+                        if (Array.isArray(err.non_field_errors)) {
+                            errors.push(...err.non_field_errors);
+                        }
+                        // 以下幾行看你的 serializer 回傳哪些欄位錯誤就加哪幾行
+                        if (Array.isArray(err.id_number))  errors.push(...err.id_number);
+                        if (Array.isArray(err.user_code))  errors.push(...err.user_code);
+                        if (Array.isArray(err.password))   errors.push(...err.password);
+                        if (Array.isArray(err.captcha))    errors.push(...err.captcha);
+
+                        // 2. 如果真的有收集到任何錯誤，就用換行（或其他分隔符）把它們串起來
+                        if (errors.length) {
+                            errMsg = errors.join('和');
+                        }
+                    }
+
+                    showToast(errMsg);
                     await refreshCaptcha();
                 }
             } catch (err) {
@@ -441,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("註冊成功！即將跳轉到登入頁");
                     setTimeout(() => {
                         window.location.href = "/login/";
-                    }, 3000);
+                    }, 2000);
                     return;
                 }
 
@@ -458,7 +491,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         || err.captcha?.[0]
                         || errMsg;
                 }
-                alert(errMsg);
+                showToast(errMsg);
                 await refreshCaptcha();
             } catch (error) {
                 console.error(error);
