@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>高科銀行</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo-container">
+          <div class="logo">
+            <svg
+              viewBox="0 0 48 48"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="brand-name">NKUST Bank</h2>
+        </div>
+
+        <div class="nav-container">
+          <div class="main-nav">
+            <a class="nav-link" href="/dashboard/">帳務總覽</a>
+            <a class="nav-link" href="#">轉帳</a>
+            <a class="nav-link" href="#">投資</a>
+            <a class="nav-link" href="#">明細查詢</a>
+            <a class="nav-link" href="#">個人資料</a>
+            <a href="SignUp.html" class="btn-link">
+              <button class="btn btn-secondary btn-md">
+                <span class="btn-text">Log Out</span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <div class="content-container">
+            <p class="heading-xl">轉帳</p>
+          
+          
+          <div class="form-group">
+            <label class="form-label">
+              <p class="label-text">轉出帳號</p>
+              <select class="form-input">
+                <option value="">請選擇帳戶</option>
+                <option value="checking">支票帳戶 - ****1234</option>
+                <option value="savings">儲蓄帳戶 - ****5678</option>
+                <option value="credit">信用卡 - ****9012</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <p class="label-text">轉入帳號</p>
+              <input type="text" class="form-input" placeholder=""/>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <p class="label-text">金額</p>
+              <input type="number" placeholder="$0" class="form-input" step="1" min="0"/>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <p class="label-text">備註</p>
+              <input type="text" placeholder="" class="form-input" />
+            </label>
+          </div>
+
+          <div class="submit-btn-container">
+            <button class="btn btn-primary btn-md">
+              <span class="btn-text">確認轉帳</span>
+            </button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
