@@ -626,3 +626,115 @@ header {
   opacity: 1;
   transform: translateX(-50%) translateY(0); /* 取消往上偏移，直接顯示在 top:20px */
 }
+
+/* invest */
+.investment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.investment-item {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  border: 1px solid #e7edf4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.investment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.investment-name {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #0d141c;
+}
+
+.investment-type {
+  background-color: #e7edf4;
+  color: #49709c;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.investment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-label {
+  color: #49709c;
+  font-size: 0.875rem;
+}
+
+.detail-value {
+  color: #0d141c;
+  font-weight: 500;
+}
+
+.detail-value.positive {
+  color: #16a34a;
+}
+
+.detail-value.negative {
+  color: #dc2626;
+}
+
+/* Trading Section */
+.trading-section {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin: 1rem;
+  border: 1px solid #e7edf4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.trading-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.trade-type-btn {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e7edf4;
+  background-color: #f8fafc;
+  color: #49709c;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.trade-type-btn.active {
+  border-color: #0c77f2;
+  background-color: #0c77f2;
+  color: #ffffff;
+}
+
+.trade-type-btn:hover {
+  border-color: #0c77f2;
+}
+
+.trading-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}

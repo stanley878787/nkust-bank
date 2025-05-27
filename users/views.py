@@ -75,6 +75,10 @@ class DashboardPage(TemplateView):
 class TransferPage(TemplateView):
     template_name = "transfer.html"
 
+
+class InvestPage(TemplateView):
+    template_name = "invest.html"
+
 # 建立 Twilio 串接 client
 twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
 User = get_user_model()   # 取得當前專案的 User model
