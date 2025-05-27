@@ -43,7 +43,7 @@ urlpatterns = [
     # 使用者相關 API（含 POST /auth/login/）
     path('api/v1/', include('users.urls', namespace='users')),
 
-    path("api/v1/", include("accounts.urls")),
+    path("api/v1/", include( ("accounts.urls","accounts"), namespace='accounts' )),
 
     # Captcha 圖形驗證碼
     path('captcha/', include('captcha.urls')),

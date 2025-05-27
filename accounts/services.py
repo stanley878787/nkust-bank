@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.db import models, transaction
 from .models import Account, Transaction
 from .utils  import gen_account_no
+from django.core.exceptions import ValidationError
 
  # —— “即時匯率表” —— 
 FX_RATE_TO_USD = {
@@ -105,3 +106,37 @@ def create_user_accounts(user):
         created.append(acct)
 
     return created
+
+@transaction.atomic
+def transfer_fund(user, from_id, to_account_no, amount: Decimal, memo=""):
+    if amount <= 0:
+        raise ValidationError("金額必須大於 0")
+    
+    try:
+        src = (Account.objects.select_for_update().get(id=from_id, user=user))
+    except Account.DoesNotExist:
+        raise ValidationError("來源帳號不存在")
+    
+    try:
+        dst = (Account.objects.select_for_update().get(account_no=to_account_no))
+    except Account.DoesNotExist:
+        raise ValidationError("目的帳號不存在")
+    
+    if src.balance < amount:
+        raise ValidationError("餘額不足")
+    
+    if src.currency != dst.currency:
+        raise ValidationError("目前僅支援同幣種轉帳")
+    
+    with transaction.atomic():
+        src.balance -= amount
+        dst.balance += amount
+        src.save(update_fields=["balance"])
+        dst.save(update_fields=["balance"])
+
+        Transaction.objects.bulk_create([
+            Transaction(account=src, amount=-amount, memo=f"轉出→{dst.account_no} {memo}"),
+            Transaction(account=dst, amount=amount, memo=f"轉入←{src.account_no} {memo}")
+        ])
+
+    return {"from": src.id, "to": dst.id, "amount":str(amount)}
