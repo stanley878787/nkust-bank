@@ -128,6 +128,9 @@ def transfer_fund(user, from_id, to_account_no, amount: Decimal, memo=""):
     if src.currency != dst.currency:
         raise ValidationError("目前僅支援同幣種轉帳")
     
+    if src == dst:
+        raise ValidationError("不要亂搞! Look at my eyes! why tell me why??")
+    
     with transaction.atomic():
         src.balance -= amount
         dst.balance += amount
