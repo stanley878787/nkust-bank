@@ -26,7 +26,7 @@ function showToast(message) {
         toast.addEventListener("transitionend", () => {
             toast.remove();
         });
-    }, 2000);
+    }, 1000);
 }
 
 
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         showToast("密碼重設成功，請使用新密碼登入。");
                         setTimeout(() => {
                             window.location.href = "/login/";
-                        }, 2000);
+                        }, 1000);
                     } else {
                         console.error("reset-password failed:", data);
                         passwordError.style.display = "block";
@@ -316,10 +316,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const data = await res.json();
                     localStorage.setItem("accessToken", data.access);
                     localStorage.setItem("refreshToken", data.refresh);
+
                     showToast("登入成功！");
                     setTimeout(() => {
                         window.location.href = "/dashboard/";
-                    }, 2000);
+                    }, 1000);
 
                 } else {
                     // const err = await res.json();
@@ -474,7 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     showToast("註冊成功！即將跳轉到登入頁");
                     setTimeout(() => {
                         window.location.href = "/login/";
-                    }, 2000);
+                    }, 1000);
                     return;
                 }
 

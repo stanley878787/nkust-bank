@@ -13,7 +13,9 @@
   <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
   <link rel="stylesheet" href="{% static 'style/dashboard.css' %}" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <script src="{% static 'js/dashboard.js' %}" defer></script>
+
 </head>
 
 <body>
@@ -59,17 +61,38 @@
         </div>
 
         <h2 class="heading-md">存款總額</h2>
-        <div class="stats-container">
-          <div class="stat-card" data-key="ntd_total">
-            <p class="stat-label">台幣帳戶</p>
-            <p class="stat-value">--</p> <!-- ★ 預設留 -- -->
+        <div class="stats-container flex space-x-4">
+          <div class="stat-card p-4 border rounded-lg" data-key="ntd_total">
+            <!-- 新增一個 .card-header flex 容器，把「標籤」和「按鈕」放一起 -->
+            <div class="card-header flex items-center justify-between mb-2">
+              <p class="stat-label">台幣帳戶</p>
+              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                data-key="ntd_total">
+                帳務資訊
+              </button>
+            </div>
+
+            <p class="stat-value text-2xl font-semibold">--</p>
           </div>
-          <div class="stat-card" data-key="fx_total">
-            <p class="stat-label">外幣帳戶</p>
+
+          <div class="stat-card relative p-4 border rounded-lg" data-key="fx_total">
+            <div class="card-header flex items-center justify-between mb-2">
+              <p class="stat-label">外幣帳戶</p>
+              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                data-key="fx_total">
+                帳務資訊
+              </button>
+            </div>
             <p class="stat-value">--</p>
           </div>
-          <div class="stat-card" data-key="inv_total">
-            <p class="stat-label">投資</p>
+          <div class="stat-card relative p-4 border rounded-lg" data-key="inv_total">
+            <div class="card-header flex items-center justify-between mb-2">
+              <p class="stat-label">投資</p>
+              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                data-key="inv_total">
+                帳務資訊
+              </button>
+            </div>
             <p class="stat-value">--</p>
           </div>
         </div>
@@ -99,6 +122,33 @@
           </div>
           <ul class="account-list"></ul>
         </div>
+
+        <!-- 預設隱藏：class 裡面有 hidden -->
+        <div id="accountModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center">
+          <div class="relative bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6" id="modalContent">
+            <!-- 標題區塊 -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-5 text-white">
+              <h3 id="modalTitle" class="text-xl font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="inline-block h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+                Model標題
+              </h3>
+
+              <button id="closeModal" class="w-5 flex items-center justify-center">
+                <svg class="h-full w-full text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div id="accountList">
+              <p>帳戶內容載入中...</p>
+            </div>
+          </div>
+        </div>
+
+
 
         <template id="account-item-tpl">
           <li class="account-list-item">

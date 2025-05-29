@@ -1,5 +1,6 @@
 /* Main Stylesheet for SecureBank */
 
+
 /* Base Styles */
 * {
   margin: 0;
@@ -351,7 +352,7 @@ header {
 
 .title-text{
     color: #49709c;
-    padding: 0.5rem 1rem; 
+    padding: 0.5rem 1rem;
 }
 
 .tab-container {
@@ -425,8 +426,8 @@ header {
 
 
 .account-section {
-  display: flex; 
-  
+  display: flex;
+
 }
 
 .account-section.active {
@@ -546,4 +547,288 @@ header {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 1rem;
+}
+
+
+
+
+/* 先把 .stat-card 內原本的絕對定位去掉 */
+.stat-card .info-btn {
+  position: static;    /* 取消 top-2 right-2 的絕對定位 */
+  margin: 0;           /* 如果有預設 margin，可以 reset */
+}
+
+/* 一個統一的 header 容器，用來讓文字和按鈕並排 */
+.card-header {
+  display: flex;
+  align-items: center;       /* 垂直置中 */
+  justify-content: space-between; /* 文字靠左，按鈕自動靠右 */
+  gap: 0.5rem;               /* 文字和按鈕之間可稍微留點空隙 */
+}
+
+/* 如果需要讓 .stat-label 不被換行（純屬保險，通常文字足夠空間也不會換行） */
+.stat-label {
+  white-space: nowrap;
+}
+
+/* 覆寫 .info-btn 的預設按鈕樣式 */
+.info-btn {
+  background-color: transparent; /* 取消底色 */
+  border: none;                  /* 取消外框 */
+  padding: 0;                    /* 如有多餘內距，可以同時清除 */
+  color: #1b5bc2;                /* Tailwind 的 blue-500 (#3B82F6) */
+  text-decoration: none;         /* 取消底線 */
+  cursor: pointer;               /* 滑鼠變成手指，顯示可點擊 */
+}
+
+/* hover 時變深藍（Tailwind blue-700） */
+.info-btn:hover {
+  color: #1D4ED8;                /* #1D4ED8 即 blue-700 */
+}
+
+
+/* Modal 顯示時加上這個 class */
+#accountModal.flex {
+  display: flex;
+}
+
+#accountModal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 50;
+
+  /* 預設隱藏 */
+  display: none;
+
+  /* flex 中置中對齊 */
+  align-items: center;
+  justify-content: center;
+}
+#modalContent {
+  position: relative;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 400px;
+  padding: 24px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#closeModal {
+  position: absolute;
+  top: 22px;
+  right: 17px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e5e7eb;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: background-color 0.2s ease;
+}
+#closeModal:hover {
+  background-color: #d1d5db;
+}
+#closeModal svg {
+  width: 16px;
+  height: 16px;
+  stroke: #4b5563;
+}
+
+#modalTitle {
+  border-bottom: 1px solid #ccc; /* 你想要的顏色和粗細 */
+  padding-bottom: 8px;           /* 標題和線條間距 */
+  margin-bottom: 16px;           /* 線條和下方內容間距 */
+}
+ /* 標題區塊 */
+ .modal-header {
+  background: linear-gradient(to right, #3b82f6, #1e40af);
+  padding: 20px;
+  color: white;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.modal-title svg {
+  margin-right: 8px;
+  width: 20px;
+  height: 20px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.close-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+  stroke-width: 2.5;
+}
+
+/* 帳戶列表 */
+.account-list {
+  padding: 20px;
+}
+
+.account-card {
+  padding: 16px;
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.account-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-color: #93c5fd;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.account-info {
+  display: flex;
+  align-items: center;
+}
+
+.account-icon {
+  background-color: #dbeafe;
+  border-radius: 50%;
+  padding: 8px;
+  margin-right: 12px;
+}
+
+.account-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #3b82f6;
+}
+
+.account-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-blue {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-green {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.card-divider {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 12px;
+}
+
+.account-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.account-label {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-value {
+  font-weight: 500;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+}
+
+.account-no {
+  font-family: monospace;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+}
+
+.copy-btn {
+  padding: 6px;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.copy-btn:hover .copy-icon {
+  stroke: #3b82f6;
+}
+
+.copy-icon, .success-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* modal 開啟時給 #modalContent 加上 .modal-open，就會自動套用下面這段「顯示狀態」 */
+#modalContent.modal-open {
+  opacity: 1;
+  transform: scale(1);
 }
