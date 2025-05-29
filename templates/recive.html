@@ -36,10 +36,10 @@
 
           <div class="nav-container">
             <div class="main-nav">
-              <a class="nav-link" href="/dashboard/">帳務總覽</a>
-              <a class="nav-link" href="#">轉帳</a>
-              <a class="nav-link" href="#">投資</a>
-              <a class="nav-link" href="#">明細查詢</a>
+              <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
+              <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
+              <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
+              <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
               <a class="nav-link" href="#">個人資料</a>
               <a href="SignUp.html" class="btn-link">
                 <button class="btn btn-secondary btn-md">
