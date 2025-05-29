@@ -1,0 +1,230 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>高科銀行</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <!-- External CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="{% static 'style/recive.css' %}" />
+  </head>
+
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-slate-50 group/design-root overflow-x-hidden design-root"
+    >
+      <div class="layout-container">
+        <header>
+          <div class="logo-container">
+            <div class="logo">
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="brand-name">NKUST Bank</h2>
+          </div>
+
+          <div class="nav-container">
+            <div class="main-nav">
+              <a class="nav-link" href="/dashboard/">帳務總覽</a>
+              <a class="nav-link" href="#">轉帳</a>
+              <a class="nav-link" href="#">投資</a>
+              <a class="nav-link" href="#">明細查詢</a>
+              <a class="nav-link" href="#">個人資料</a>
+              <a href="SignUp.html" class="btn-link">
+                <button class="btn btn-secondary btn-md">
+                  <span class="btn-text">Log Out</span>
+                </button>
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <div class="main-content">
+          <div class="layout-content-container">
+            <div class="content-header">
+              <div class="header-info">
+                <p class="page-title">帳戶明細</p>
+                <p class="page-subtitle">顯示近三個月交易明細</p>
+              </div>
+            </div>
+
+            <div class="tabs-container">
+              <div class="tabs">
+                <a class="tab-link active" href="#">
+                  <p class="tab-text">All</p>
+                </a>
+                <a class="tab-link" href="#">
+                  <p class="tab-text">Deposits</p>
+                </a>
+              </div>
+            </div>
+
+            <h3 class="section-title">Today</h3>
+            <div class="transaction-item">
+              <div class="transaction-details">
+                <div
+                  class="transaction-icon"
+                  data-icon="ArrowDown"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="transaction-info">
+                  <p class="transaction-title">Deposit</p>
+                  <p class="transaction-time">10:30 AM</p>
+                </div>
+              </div>
+              <div class="transaction-amount">
+                <p class="amount-text">+$500.00</p>
+              </div>
+            </div>
+
+            <h3 class="section-title">Yesterday</h3>
+            <div class="transaction-item">
+              <div class="transaction-details">
+                <div
+                  class="transaction-icon"
+                  data-icon="ArrowUp"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="transaction-info">
+                  <p class="transaction-title">Transfer to Sarah</p>
+                  <p class="transaction-time">11:45 AM</p>
+                </div>
+              </div>
+              <div class="transaction-amount">
+                <p class="amount-text">-$150.00</p>
+              </div>
+            </div>
+
+            <div class="transaction-item">
+              <div class="transaction-details">
+                <div
+                  class="transaction-icon"
+                  data-icon="ArrowDown"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="transaction-info">
+                  <p class="transaction-title">Deposit</p>
+                  <p class="transaction-time">02:15 PM</p>
+                </div>
+              </div>
+              <div class="transaction-amount">
+                <p class="amount-text">+$200.00</p>
+              </div>
+            </div>
+
+            <h3 class="section-title">May 15, 2024</h3>
+            <div class="transaction-item">
+              <div class="transaction-details">
+                <div
+                  class="transaction-icon"
+                  data-icon="ArrowUp"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="transaction-info">
+                  <p class="transaction-title">Transfer to David</p>
+                  <p class="transaction-time">09:00 AM</p>
+                </div>
+              </div>
+              <div class="transaction-amount">
+                <p class="amount-text">-$75.00</p>
+              </div>
+            </div>
+
+            <div class="transaction-item">
+              <div class="transaction-details">
+                <div
+                  class="transaction-icon"
+                  data-icon="ArrowDown"
+                  data-size="24px"
+                  data-weight="regular"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="transaction-info">
+                  <p class="transaction-title">Deposit</p>
+                  <p class="transaction-time">03:30 PM</p>
+                </div>
+              </div>
+              <div class="transaction-amount">
+                <p class="amount-text">+$300.00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
