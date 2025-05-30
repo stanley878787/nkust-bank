@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from users.views import LoginPage, RegistrationPage, DashboardPage, ForgetPasswordPage, TransferPage, InvestPage, RecivePage
+from users.views import LoginPage, RegistrationPage, DashboardPage, ForgetPasswordPage, TransferPage, InvestPage, RecivePage, AnalysisPage
 
 urlpatterns = [
     # 根路由 顯示登入頁
@@ -42,6 +42,8 @@ urlpatterns = [
 
     #明細
     path('recive/', RecivePage.as_view(), name="recive_page"),
+
+    path('analysis/', AnalysisPage.as_view(), name='analysis_page'),
 
     # 管理後台
     path('admin/', admin.site.urls),

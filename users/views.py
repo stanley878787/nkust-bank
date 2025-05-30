@@ -79,9 +79,12 @@ class TransferPage(TemplateView):
 class InvestPage(TemplateView):
     template_name = "invest.html"
 
+class AnalysisPage(TemplateView):
+    template_name = "analysis.html"
 
 class RecivePage(TemplateView):
     template_name = "recive.html"
+
 
 # 建立 Twilio 串接 client
 twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)

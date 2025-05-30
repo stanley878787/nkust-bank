@@ -1,6 +1,7 @@
 # accounts/models.py
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 
 class Account(models.Model):
     CATEGORY_CHOICES = [
@@ -22,12 +23,33 @@ class Account(models.Model):
         return f"{self.user.user_code}-{self.name}"
 
 class Transaction(models.Model):
+    TX_CHOICES = [
+        ("in",  "收入"),      # 存入、薪資、退款
+        ("out", "支出"),      # 消費、轉帳出去
+        ("xfer","轉帳"),      # 內部帳戶移轉
+    ]
+
+    CATEGORY_CHOICES = [
+        ("food",   "餐飲"), 
+        ("shopping",   "購物"),
+        ("subscription",   "訂閱"),
+        ("bill",   "帳單"),
+        ("salary", "薪資"),     
+        ("other",  "其他"),
+    ]
+
     account    = models.ForeignKey(Account,
                                    on_delete=models.CASCADE,
                                    related_name='transactions')
-    tx_time    = models.DateTimeField(auto_now_add=True)
+    # tx_time    = models.DateTimeField(auto_now_add=True)
+    tx_time    = models.DateTimeField(default=timezone.now)
     amount     = models.DecimalField(max_digits=18, decimal_places=2)
     memo       = models.CharField(max_length=100, blank=True)
+    tx_type    = models.CharField(max_length=4, choices=TX_CHOICES, default="out")
+
+    category = models.CharField(max_length=30,
+                                choices=CATEGORY_CHOICES,
+                                default="other")
 
     class Meta:
         ordering = ['-tx_time']

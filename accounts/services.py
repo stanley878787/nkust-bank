@@ -72,14 +72,14 @@ def create_user_accounts(user):
     """
     為新使用者建立 4 個帳戶並各寫入一筆「開戶禮金」交易
 
-      台幣活期     5 000  TWD
+      台幣活期     10000  TWD
       美金活期       100  USD
       日圓活期         0  JPY
       投資帳戶         0  TWD
     """
     seed = [
         # name,            type,               cat , cur , init_amt
-        ("活期存款",        "台幣存款帳戶",       "ntd", "TWD",  "5000.00"),
+        ("活期存款",        "台幣存款帳戶",       "ntd", "TWD",  "10000.00"),
         ("USD 活期存款",   "外幣帳戶 (USD)",    "fx" , "USD",   "100.00"),
         ("JPY 活期存款",   "外幣帳戶 (JPY)",    "fx" , "JPY",     "0.00"),
         ("投資帳戶",        "證券帳戶",       "inv", "TWD",     "0.00"),
@@ -102,6 +102,7 @@ def create_user_accounts(user):
                 account = acct,
                 amount  = Decimal(amt),
                 memo    = "開戶禮金",
+                tx_type = "in"
             )
         created.append(acct)
 
