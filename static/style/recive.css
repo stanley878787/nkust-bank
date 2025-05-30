@@ -1,11 +1,13 @@
+/* Main Stylesheet for SecureBank */
+
 /* Banking App Styles */
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   white-space: nowrap;
-  border-bottom: 1px solid #e7edf4;
   padding: 0.75rem 2.5rem;
+  background-color: #fff;
 }
 
 .logo {
@@ -60,6 +62,7 @@ header {
 /* Root container */
 .design-root {
   font-family: Inter, "Noto Sans", sans-serif;
+
 }
 
 /* Layout containers */
@@ -331,4 +334,28 @@ header {
 
 .text-accent {
   color: #0c77f2;
+} */
+
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background-color: #f8fafc;
+  color: #334155;
 }
+
+.card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.header-gradient {
+  background: linear-gradient(135deg, #0f4c81 0%, #1e6091 100%);
+  color: white;
+}
+

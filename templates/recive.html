@@ -36,11 +36,17 @@
             <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
             <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
             <a class="nav-link" href="#">個人資料</a>
-            <a href="SignUp.html" class="btn-link">
+            <a href="/login/" id="logoutBtn" class="btn-link">
               <button class="btn btn-secondary btn-md">
                 <span class="btn-text">Log Out</span>
               </button>
             </a>
+          </div>
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full" style="
+                width: 2.5rem;
+                height: 2.5rem;
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Po79iYR7-ksZ7A9PaurSHsjyFb0bDUM7Wrq__6odpyUHIy4eEOfMBDFF9W-ppcZbn9tJQ9wnsGUGfOwQJbYeUnZzLpastyCXna17C_SwtvQAvKo1Q8t8uS8tHrowAL5G34rGkvH7E12kjlNzjyu9ZdAw8TLrX1O6H36epF75Weawl2kxBE1yY0ctRs620JhHAwStaBftHyH0vWt4ssjoS77vzgCGVCISgzBR2GssKZ1C68SFZyqDcNaCkwPpbRPbABmlpf5Vp8');
+              ">
           </div>
         </div>
       </header>
@@ -50,12 +56,12 @@
           <div class="content-header">
             <div class="header-info">
               <p class="page-title">帳戶明細</p>
-              <p class="page-subtitle">顯示近三個月交易明細</p>
+              <p class="page-subtitle">顯示個人交易明細</p>
             </div>
           </div>
 
           <a href="{% url 'analysis_page' %}"
-            class="ml-auto rounded bg-slate-200 px-3 py-1 text-sm hover:bg-slate-300 transition">
+            class="ml-auto rounded  px-4 py-2 text-sm hover:bg-slate-300 transition text-white" style="background-color: #49709c;">
             消費分析
           </a>
 
@@ -81,12 +87,12 @@
           <div id="txList" class="space-y-6"></div>
 
           <template id="txItemTpl">
-            <div class="transaction-item">
-              <div class="transaction-details">
-                <div class="transaction-icon"></div>
+            <div class="transaction-item flex items-center justify-between p-2 border-b">
+              <div class="flex items-center space-x-3">
+                <div class="transaction-icon w-10 h-10 flex-shrink-0"></div>
                 <div class="transaction-info">
                   <p class="transaction-title"></p>
-                  <p class="transaction-time"></p>
+                  <p class="transaction-time text-sm text-gray-500"></p>
                 </div>
               </div>
               <div class="transaction-amount">
@@ -94,6 +100,8 @@
               </div>
             </div>
           </template>
+
+
 
           <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
           <script src="{% static 'js/recive.js' %}" defer></script>
