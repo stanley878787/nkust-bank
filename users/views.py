@@ -85,6 +85,9 @@ class AnalysisPage(TemplateView):
 class RecivePage(TemplateView):
     template_name = "recive.html"
 
+class PersonalPage(TemplateView):
+    template_name = "personal.html"
+
 
 # 建立 Twilio 串接 client
 twilio_client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)

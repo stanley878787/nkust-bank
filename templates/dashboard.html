@@ -1,179 +1,241 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
-    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+    <title>高科銀行</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="stylesheet" href="{% static 'style/dashboard.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="{% static 'js/dashboard.js' %}" defer></script>
+  </head>
 
-  <title>高科銀行</title>
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-  <link rel="stylesheet" href="{% static 'style/dashboard.css' %}" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-  <script src="{% static 'js/dashboard.js' %}" defer></script>
+  <body>
+    <div class="container">
+      <header>
+        <a href="{% url 'dashboard_page' %}" style="text-decoration: none"
+          ><div class="logo-container">
+            <div class="logo">
+              <svg
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="brand-name">NKUST Bank</h2>
+          </div></a
+        >
 
-</head>
+        <div class="nav-container">
+          <div class="main-nav">
+            <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
+            <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
+            <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
+            <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
+            <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
+            <a href="/login/" id="logoutBtn" class="btn-link">
+              <button class="btn btn-secondary btn-md">
+                <span class="btn-text">Log Out</span>
+              </button>
+            </a>
+          </div>
 
-<body>
-  <div class="container">
-    <header>
-      <div class="logo-container">
-        <div class="logo">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-              fill="currentColor"></path>
-          </svg>
-        </div>
-        <h2 class="brand-name">NKUST Bank</h2>
-      </div>
-
-      <div class="nav-container">
-        <div class="main-nav">
-          <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
-          <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
-          <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
-          <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
-          <a class="nav-link" href="#">個人資料</a>
-          <a href="/login/" id="logoutBtn" class="btn-link">
-            <button class="btn btn-secondary btn-md">
-              <span class="btn-text">Log Out</span>
-            </button>
-          </a>
-        </div>
-
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full" style="
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full"
+            style="
               width: 2.5rem;
               height: 2.5rem;
               background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Po79iYR7-ksZ7A9PaurSHsjyFb0bDUM7Wrq__6odpyUHIy4eEOfMBDFF9W-ppcZbn9tJQ9wnsGUGfOwQJbYeUnZzLpastyCXna17C_SwtvQAvKo1Q8t8uS8tHrowAL5G34rGkvH7E12kjlNzjyu9ZdAw8TLrX1O6H36epF75Weawl2kxBE1yY0ctRs620JhHAwStaBftHyH0vWt4ssjoS77vzgCGVCISgzBR2GssKZ1C68SFZyqDcNaCkwPpbRPbABmlpf5Vp8');
-            "></div>
+            "
+          ></div>
         </div>
-    </header>
+      </header>
 
-    <div class="main-content">
-      <div class="content-container">
-        <div class="flex-row">
-          <p class="heading-xl">帳務總覽</p>
-        </div>
-
-        <h2 class="heading-md">存款總額</h2>
-        <div class="stats-container flex space-x-4">
-          <div class="stat-card p-4 border rounded-lg" data-key="ntd_total">
-            <!-- 新增一個 .card-header flex 容器，把「標籤」和「按鈕」放一起 -->
-            <div class="card-header flex items-center justify-between mb-2">
-              <p class="stat-label">台幣帳戶</p>
-              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
-                data-key="ntd_total">
-                帳務資訊
-              </button>
-            </div>
-
-            <p class="stat-value text-2xl font-semibold">--</p>
+      <div class="main-content">
+        <div class="content-container">
+          <div class="flex-row">
+            <p class="heading-xl">帳務總覽</p>
           </div>
 
-          <div class="stat-card relative p-4 border rounded-lg" data-key="fx_total">
-            <div class="card-header flex items-center justify-between mb-2">
-              <p class="stat-label">外幣帳戶</p>
-              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
-                data-key="fx_total">
-                帳務資訊
-              </button>
-            </div>
-            <p class="stat-value">--</p>
-          </div>
-          <div class="stat-card relative p-4 border rounded-lg" data-key="inv_total">
-            <div class="card-header flex items-center justify-between mb-2">
-              <p class="stat-label">投資</p>
-              <button class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
-                data-key="inv_total">
-                帳務資訊
-              </button>
-            </div>
-            <p class="stat-value">--</p>
-          </div>
-        </div>
+          <h2 class="heading-md">存款總額</h2>
+          <div class="stats-container flex space-x-4">
+            <div class="stat-card p-4 border rounded-lg" data-key="ntd_total">
+              <!-- 新增一個 .card-header flex 容器，把「標籤」和「按鈕」放一起 -->
+              <div class="card-header flex items-center justify-between mb-2">
+                <p class="stat-label">台幣帳戶</p>
+                <button
+                  class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                  data-key="ntd_total"
+                >
+                  帳務資訊
+                </button>
+              </div>
 
+              <p class="stat-value text-2xl font-semibold">--</p>
+            </div>
 
-        <div class="account-section">
-          <!-- 台幣帳戶 -->
-          <div class="account-container" data-cat="ntd">
+            <div
+              class="stat-card relative p-4 border rounded-lg"
+              data-key="fx_total"
+            >
+              <div class="card-header flex items-center justify-between mb-2">
+                <p class="stat-label">外幣帳戶</p>
+                <button
+                  class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                  data-key="fx_total"
+                >
+                  帳務資訊
+                </button>
+              </div>
+              <p class="stat-value">--</p>
+            </div>
+            <div
+              class="stat-card relative p-4 border rounded-lg"
+              data-key="inv_total"
+            >
+              <div class="card-header flex items-center justify-between mb-2">
+                <p class="stat-label">投資</p>
+                <button
+                  class="info-btn bg-transparent border-none p-0 text-blue-500 hover:text-blue-700 no-underline cursor-pointer"
+                  data-key="inv_total"
+                >
+                  帳務資訊
+                </button>
+              </div>
+              <p class="stat-value">--</p>
+            </div>
+          </div>
+
+          <div class="account-section">
+            <!-- 台幣帳戶 -->
+            <div class="account-container" data-cat="ntd">
+              <div class="tab-title">
+                <p class="title-text">台幣帳戶</p>
+              </div>
+              <ul class="account-list"></ul>
+            </div>
+
+            <!-- 外幣帳戶 -->
+            <div class="account-container" data-cat="fx">
+              <div class="tab-title">
+                <p class="title-text">外幣存款</p>
+              </div>
+              <ul class="account-list"></ul>
+            </div>
+          </div>
+
+          <div class="investment-container account-container" data-cat="inv">
             <div class="tab-title">
-              <p class="title-text">台幣帳戶</p>
+              <p class="title-text">投資</p>
             </div>
             <ul class="account-list"></ul>
           </div>
 
-          <!-- 外幣帳戶 -->
-          <div class="account-container" data-cat="fx">
-            <div class="tab-title">
-              <p class="title-text">外幣存款</p>
-            </div>
-            <ul class="account-list"></ul>
-          </div>
-        </div>
+          <!-- 預設隱藏：class 裡面有 hidden -->
+          <div
+            id="accountModal"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center"
+          >
+            <div
+              class="relative bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6"
+              id="modalContent"
+            >
+              <!-- 標題區塊 -->
+              <div
+                class="bg-gradient-to-r from-blue-600 to-blue-800 p-5 text-white"
+              >
+                <h3 id="modalTitle" class="text-xl font-semibold">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    class="inline-block h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                    />
+                  </svg>
+                  Model標題
+                </h3>
 
-        <div class="investment-container account-container" data-cat="inv">
-          <div class="tab-title">
-            <p class="title-text">投資</p>
-          </div>
-          <ul class="account-list"></ul>
-        </div>
-
-        <!-- 預設隱藏：class 裡面有 hidden -->
-        <div id="accountModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center">
-          <div class="relative bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6" id="modalContent">
-            <!-- 標題區塊 -->
-            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-5 text-white">
-              <h3 id="modalTitle" class="text-xl font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="inline-block h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-                Model標題
-              </h3>
-
-              <button id="closeModal" class="w-5 flex items-center justify-center">
-                <svg class="h-full w-full text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            <div id="accountList">
-              <p>帳戶內容載入中...</p>
-            </div>
-          </div>
-        </div>
-
-
-
-        <template id="account-item-tpl">
-          <li class="account-list-item">
-            <div class="account-info">
-              <div class="account-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
-                  viewBox="0 0 256 256">
-                  <path
-                    d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z">
-                  </path>
-                </svg>
+                <button
+                  id="closeModal"
+                  class="w-5 flex items-center justify-center"
+                >
+                  <svg
+                    class="h-full w-full text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
-              <div class="account-details">
-                <p class="account-name"></p>
-                <p class="account-type"></p>
+
+              <div id="accountList">
+                <p>帳戶內容載入中...</p>
               </div>
             </div>
-            <div class="account-amount">
-              <p class="account-balance"></p>
-            </div>
-          </li>
-        </template>
+          </div>
+
+          <template id="account-item-tpl">
+            <li class="account-list-item">
+              <div class="account-info">
+                <div class="account-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    fill="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="account-details">
+                  <p class="account-name"></p>
+                  <p class="account-type"></p>
+                </div>
+              </div>
+              <div class="account-amount">
+                <p class="account-balance"></p>
+              </div>
+            </li>
+          </template>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

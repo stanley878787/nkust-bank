@@ -1,0 +1,134 @@
+/* 個人資料區塊 */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: white;
+  padding: 30px;
+  margin: 24px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDuDPZokn7tNDYu4qPNYiY9MRWZO4ZpVxjVY-7-dtCzb9RP8cq-gKILojvMVl7uOTtqxKEgRLMHJRj5YwndYMr-sVuf5Xx6KnSsZTQjttceVHyYp1etZ6kO8Dxemg3v8sSalngYrA006-1ewmyaCoeq6k6WnNHIOYPMS08jEr2uccJAEnV3-aumW8Rg3KSC99TRd54TnF7qlHJML2TFbbGw3kf7gpLhElZaumBUymsF7VM1NdqZvEi4P_BJGqET7rioGP-jeiVKDno");
+  background-size: cover;
+  background-position: center;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.role {
+  color: #49719c;
+}
+
+/* settting */
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 24px 24px 16px 24px;
+  margin: 0;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  margin: 0px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.settings-item:hover {
+  background-color: #f8f9fa;
+}
+
+.settings-item:last-of-type {
+  border-bottom: none;
+}
+
+.settings-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.settings-icon {
+  width: 48px;
+  height: 48px;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  color: #666;
+}
+
+.settings-text {
+  flex: 1;
+}
+
+.settings-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.settings-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.settings-arrow {
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+}
+
+.button-container {
+  padding: 24px;
+  background-color: #fafafa;
+}
+
+.save-button {
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #2563eb;
+}
+
+.save-button:active {
+  transform: translateY(1px);
+}

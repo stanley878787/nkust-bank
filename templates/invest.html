@@ -18,7 +18,7 @@
   <body>
     <div class="container">
         <header>
-        <div class="logo-container">
+        <a href="{% url 'dashboard_page' %}" style="text-decoration: none;"><div class="logo-container">
           <div class="logo">
             <svg
               viewBox="0 0 48 48"
@@ -32,7 +32,7 @@
             </svg>
           </div>
           <h2 class="brand-name">NKUST Bank</h2>
-        </div>
+        </div></a>
 
         <div class="nav-container">
           <div class="main-nav">
@@ -40,7 +40,7 @@
             <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
             <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
             <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
-            <a class="nav-link" href="#">個人資料</a>
+            <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
             <a href="SignUp.html" class="btn-link">
               <button class="btn btn-secondary btn-md">
                 <span class="btn-text">Log Out</span>
