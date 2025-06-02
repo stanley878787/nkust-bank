@@ -12,7 +12,7 @@ class AccountSerializer(serializers.ModelSerializer):
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Transaction
-        fields = ['id', 'tx_time', 'amount', 'memo', 'tx_type']
+        fields = ['id', 'account', 'tx_time', 'amount', 'memo', 'tx_type']
 
 class TransferSerializer(serializers.Serializer):
     from_account_id = serializers.IntegerField()

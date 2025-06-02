@@ -139,8 +139,18 @@ def transfer_fund(user, from_id, to_account_no, amount: Decimal, memo=""):
         dst.save(update_fields=["balance"])
 
         Transaction.objects.bulk_create([
-            Transaction(account=src, amount=-amount, memo=f"轉出→{dst.account_no} {memo}"),
-            Transaction(account=dst, amount=amount, memo=f"轉入←{src.account_no} {memo}")
+            Transaction(
+                account=src,
+                amount=-amount,
+                memo=f"轉出→{dst.account_no} {memo}",
+                tx_type="xfer"
+            ),
+            Transaction(
+                account=dst,
+                amount= amount,
+                memo=f"轉入←{src.account_no} {memo}",
+                tx_type="xfer"
+            )
         ])
 
     return {"from": src.id, "to": dst.id, "amount":str(amount)}
