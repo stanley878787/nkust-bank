@@ -27,6 +27,9 @@ class User(AbstractUser):
         unique=True,
         help_text="格式：09xxxxxxxx"
     )
+    # 新增：使用者頭像欄位（圖片）
+    # 改成用 TextField 存 Base64
+    avatar_base64 = models.TextField(blank=True, null=True)
 
     # AbstractUser 預設 username, email, password 等欄位都已包含
     REQUIRED_FIELDS = ["id_number", "phone", "email"]

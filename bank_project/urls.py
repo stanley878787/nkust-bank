@@ -57,6 +57,9 @@ urlpatterns = [
 
     path("api/v1/", include( ("accounts.urls","accounts"), namespace='accounts' )),
 
+    # 把 personal app 的 URL 加進來
+    path('personal/', include('personal.urls')),  # 這樣 /personal/api/info/ 就能被找到
+
     # Captcha 圖形驗證碼
     path('captcha/', include('captcha.urls')),
 ]
