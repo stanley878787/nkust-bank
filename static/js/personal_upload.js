@@ -60,7 +60,7 @@ function closeAvatarUploadModal() {
 
 function resetAvatarUploadState() {
   fileInput.value = '';
-  previewContainer.classList.add('hidden');
+  // previewContainer.classList.add('hidden');
   saveButton.disabled = true;
   uploadArea.style.borderColor = '';
   uploadArea.style.backgroundColor = '';
@@ -99,11 +99,11 @@ fileInput.addEventListener('change', (e) => {
 function handleAvatarFile(file) {
   const validTypes = ['image/jpeg', 'image/png'];
   if (!validTypes.includes(file.type)) {
-    alert('請上傳 JPG 或 PNG 格式的圖片');
+    showToast('請上傳 JPG 或 PNG 格式的圖片', 'error');
     return;
   }
   if (file.size > 5 * 1024 * 1024) {
-    alert('檔案大小不能超過 5MB');
+    showToast('檔案大小不能超過 5MB', 'error');
     return;
   }
   const reader = new FileReader();
@@ -138,9 +138,10 @@ saveButton.addEventListener('click', () => {
   .then(res => res.json().then(body => ({ status: res.status, body })))
   .then(({ status, body }) => {
     if (status === 200) {
-      console.log('上傳成功');
+      console.log('');
+      showToast('上傳成功', 'success');
     } else {
-      alert(body.detail || '上傳失敗');
+      showToast('上傳失敗', 'error');
       existingAvatar.style.backgroundImage = '';
       existingAvatar.classList.remove('has-image');
     }

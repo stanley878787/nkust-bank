@@ -31,11 +31,11 @@ window.addEventListener('DOMContentLoaded', () => {
         // avatar_url 已經是完整 Data URI: "data:image/png;base64,AAA..."
         existingAvatar.style.backgroundImage = `url(${data.avatar_url})`;
         // 移除 .hidden，讓它顯示出來
-        existingAvatar.classList.remove('hidden');
+        // existingAvatar.classList.remove('hidden');
         existingAvatar.classList.add('has-image'); // 如果你要額外套樣式
       } else {
         // 沒有 avatar，就確保它是隱藏狀態
-        existingAvatar.classList.add('hidden');
+        // existingAvatar.classList.add('hidden');
       }
 
       // 更新按鈕狀態與 completionStatus
@@ -109,7 +109,7 @@ function showSuccessAnimation() {
   setTimeout(() => {
     successAnimation.classList.remove('active');
     transitionToMainContent();
-  }, 3000);
+  }, 1500);
 }
 
 // 切換到主畫面
