@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users.views import LoginPage, RegistrationPage, DashboardPage, ForgetPasswordPage, TransferPage, InvestPage, RecivePage, AnalysisPage, PersonalPage
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     # 根路由 顯示登入頁
@@ -62,4 +66,9 @@ urlpatterns = [
 
     # Captcha 圖形驗證碼
     path('captcha/', include('captcha.urls')),
+
+    # 取得新的 access/refresh token
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # 透過 refresh token 拿新的 access token
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
