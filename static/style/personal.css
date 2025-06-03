@@ -7,19 +7,22 @@
 /* 讓 #welcome-screen 變成 flex container，
    並水平置中（如果也要垂直置中可再加 align-items） */
 #welcome-screen {
-    display: flex;
-    justify-content: center; /* 水平置中 */
-    /* 如果你也想垂直置中，請打開下面這行：
+  display: flex;
+  justify-content: center;
+  /* 水平置中 */
+  /* 如果你也想垂直置中，請打開下面這行：
     align-items: center;
     height: 100vh; /* 讓 flex-container 滿版高度 (如要垂直置中) */
-    /* 如果不需要垂直置中，保留 #welcome-screen 原本高度即可 */
+  /* 如果不需要垂直置中，保留 #welcome-screen 原本高度即可 */
 }
 
 /* 限制歡迎內容的最大寬度，並置中 */
 #welcome-screen .content-container {
-    width: 100%;
-    max-width: 600px; /* 視需求自行調整 */
-    box-sizing: border-box; /* 確保 padding 不會使寬度溢位 */
+  width: 100%;
+  max-width: 600px;
+  /* 視需求自行調整 */
+  box-sizing: border-box;
+  /* 確保 padding 不會使寬度溢位 */
 }
 
 /* 3. .profile-header（頭像＋名稱區） */
@@ -62,12 +65,14 @@
   justify-content: center;
   margin-left: 20px;
 }
+
 .name {
   font-size: 22px;
   font-weight: 600;
   margin: 0 0 8px 0;
   color: #333;
 }
+
 .role {
   font-size: 16px;
   color: #49719c;
@@ -101,10 +106,12 @@
   background-color: #f8fafc;
   transition: all 0.2s;
 }
+
 .settings-item:hover {
   background-color: #f1f5f9;
   transform: translateY(-2px);
 }
+
 .settings-item:last-of-type {
   border-bottom: none;
 }
@@ -142,12 +149,14 @@
 .settings-text {
   flex: 1;
 }
+
 .settings-title {
   font-size: 16px;
   font-weight: 500;
   color: #1a1a1a;
   margin-bottom: 4px;
 }
+
 .settings-description {
   font-size: 14px;
   color: #6b7280;
@@ -175,9 +184,11 @@
   margin-left: auto;
   transition: all 0.2s;
 }
+
 .add-button:hover {
   background-color: #bfdbfe;
 }
+
 .add-button svg {
   margin-right: 4px;
 }
@@ -190,16 +201,19 @@
   border-radius: 12px;
   transition: all 0.5s ease;
 }
+
 .completion-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
 }
+
 .completion-title {
   font-weight: 600;
   color: #0c4a6e;
 }
+
 .completion-percentage {
   font-weight: 600;
   color: #0284c7;
@@ -212,6 +226,7 @@
   border-radius: 4px;
   overflow: hidden;
 }
+
 .progress-fill {
   height: 100%;
   background-color: #0284c7;
@@ -228,11 +243,13 @@
   border-left: 4px solid #0284c7;
   transition: all 0.5s ease;
 }
+
 .welcome-title {
   font-weight: 600;
   margin-bottom: 8px;
   color: #0c4a6e;
 }
+
 .welcome-text {
   color: #0369a1;
   font-size: 14px;
@@ -256,6 +273,7 @@
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
+
 .modal.active {
   opacity: 1;
   pointer-events: auto;
@@ -271,6 +289,7 @@
   transform: translateY(20px);
   transition: transform 0.3s ease;
 }
+
 .modal.active .modal-content {
   transform: translateY(0);
 }
@@ -282,6 +301,7 @@
   align-items: center;
   margin-bottom: 24px;
 }
+
 .modal-title {
   font-size: 20px;
   font-weight: 600;
@@ -300,6 +320,7 @@
   justify-content: center;
   border-radius: 50%;
 }
+
 .close-button:hover {
   background-color: #f1f5f9;
 }
@@ -308,12 +329,14 @@
 .form-group {
   margin-bottom: 20px;
 }
+
 .form-label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
   color: #334155;
 }
+
 .form-input {
   width: 100%;
   padding: 12px 16px;
@@ -322,6 +345,7 @@
   font-size: 16px;
   transition: border-color 0.2s;
 }
+
 .form-input:focus {
   outline: none;
   border-color: #0284c7;
@@ -341,9 +365,11 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .save-button:hover {
   background-color: #0369a1;
 }
+
 .save-button:active {
   transform: translateY(1px);
 }
@@ -357,8 +383,10 @@
   font-size: 0.9rem;
   opacity: 0;
   transition: opacity 0.3s ease;
-  margin-top: 0.5rem; /* 如果同一時間有多個 toast，讓它們保持間隔 */
+  margin-top: 0.5rem;
+  /* 如果同一時間有多個 toast，讓它們保持間隔 */
 }
+
 .toast.show {
   opacity: 1;
 }
@@ -391,6 +419,7 @@
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
+
 .success-animation.active {
   opacity: 1;
   pointer-events: auto;
@@ -410,6 +439,7 @@
   position: relative;
   margin: 0 auto 30px;
 }
+
 .checkmark__circle {
   stroke-dasharray: 166;
   stroke-dashoffset: 166;
@@ -419,6 +449,7 @@
   fill: none;
   animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
 }
+
 .checkmark__check {
   transform-origin: 50% 50%;
   stroke-dasharray: 48;
@@ -432,14 +463,19 @@
     stroke-dashoffset: 0;
   }
 }
+
 @keyframes scale {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: none;
   }
+
   50% {
     transform: scale3d(1.1, 1.1, 1);
   }
 }
+
 @keyframes fill {
   100% {
     box-shadow: inset 0px 0px 0px 30px #4BB71B;
@@ -453,6 +489,7 @@
   color: #15803d;
   margin-bottom: 16px;
 }
+
 .success-subtext {
   font-size: 16px;
   color: #65a30d;
@@ -474,6 +511,7 @@
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
 #avatarUploadModalOverlay.active {
   opacity: 1;
   visibility: visible;
@@ -491,6 +529,7 @@
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
 #avatarUploadModalOverlay.active #avatarUploadModal {
   transform: translateY(0);
   opacity: 1;
@@ -503,6 +542,7 @@
   align-items: center;
   margin-bottom: 20px;
 }
+
 #avatarUploadModal .modal-title {
   font-size: 20px;
   font-weight: 600;
@@ -524,6 +564,7 @@
   border-radius: 50%;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
 #avatarUploadModal .close-button:hover {
   background-color: #f1f5f9;
   color: #334155;
@@ -539,19 +580,23 @@
   cursor: pointer;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
+
 #avatarUploadModal .upload-area:hover {
   border-color: #94a3b8;
   background-color: #f8fafc;
 }
+
 #avatarUploadModal .upload-icon {
   font-size: 48px;
   color: #64748b;
   margin-bottom: 12px;
 }
+
 #avatarUploadModal .upload-text {
   color: #64748b;
   margin-bottom: 8px;
 }
+
 #avatarUploadModal .upload-hint {
   color: #94a3b8;
   font-size: 14px;
@@ -563,9 +608,11 @@
   margin-bottom: 20px;
   text-align: center;
 }
+
 #avatarUploadModal .preview-container.active {
   display: block;
 }
+
 #avatarUploadModal .image-preview {
   width: 128px;
   height: 128px;
@@ -579,23 +626,40 @@
 /* 按鈕群組 */
 #avatarUploadModal .button-group {
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  width: 100%;
   gap: 12px;
+  margin-top: 24px;
 }
+
+#avatarUploadModal .button-group button {
+  flex: 1 1 0;
+  /* 兩顆各占 50% */
+  padding: 14px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color .2s;
+  color: #fff;
+}
+
 #avatarUploadModal .cancel-button {
   padding: 10px 16px;
   border-radius: 8px;
-  background-color: #f1f5f9;
+  background-color: #df3409;
   color: #64748b;
   font-weight: 500;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
 #avatarUploadModal .cancel-button:hover {
   background-color: #e2e8f0;
   color: #475569;
 }
+
 #avatarUploadModal .save-button {
   padding: 10px 16px;
   border-radius: 8px;
@@ -606,12 +670,97 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 #avatarUploadModal .save-button:hover {
   background-color: #2563eb;
 }
+
 #avatarUploadModal .save-button:disabled {
   background-color: #93c5fd;
   cursor: not-allowed;
 }
 
+#avatarUploadArea {
+  width: 300px;
+  /* 固定寬度 */
+  height: 300px;
+  /* 固定高度 */
+  position: relative;
+  overflow: hidden;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  margin: 0 auto;
+}
 
+
+#crop-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* 滿版 300×300 */
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#crop-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, .5);
+  pointer-events: none;
+}
+
+#crop-image {
+  position: absolute;
+  cursor: grab;
+  pointer-events: auto;
+}
+
+#upload-placeholder {
+  width: 180px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#avatarUploadArea.uploading {
+  display: none;
+}
+
+.image-preview {
+  object-fit: cover;
+}
+
+/* #crop-image,
+#crop-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+} */
+
+#avatarUploadPreviewContainer.visible {
+  display: block;
+}
+
+#avatarUploadPreviewContainer {
+  display: none;
+  margin-bottom: 20px;
+  text-align: center;
+}

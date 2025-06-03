@@ -18,7 +18,14 @@
   <script src="{% static 'js/personal_upload.js' %}" defer></script>
   <style>
     /* 在這裡新增覆蓋： */
-    audio, canvas, embed, iframe, img, object, svg, video {
+    audio,
+    canvas,
+    embed,
+    iframe,
+    img,
+    object,
+    svg,
+    video {
       /* 將 display 恢復成 default（各元素的初始預設值） */
       display: initial !important;
       vertical-align: initial !important;
@@ -79,7 +86,8 @@
             <p class="settings-title">姓名</p>
             <p class="settings-description" id="name-display">
               <span class="empty-state">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor" viewBox="0 0 256 256">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill="currentColor"
+                  viewBox="0 0 256 256">
                   <path
                     d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-80V80a8,8,0,0,1,16,0v56a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,172Z">
                   </path>
@@ -167,7 +175,8 @@
         <!-- ===== 改成這樣 ===== -->
         <div class="profile-header">
           <!-- 加上 relative 與 group，使子元素能夠 group-hover -->
-          <div id="avatar" class="avatar relative w-32 h-32 bg-gray-300 rounded-full overflow-hidden cursor-pointer group">
+          <div id="avatar"
+            class="avatar relative w-32 h-32 bg-gray-300 rounded-full overflow-hidden cursor-pointer group">
             <!-- 如果有真正的圖片，就把 <img> 放進來並改成 cover；這裡範例使用純灰底 -->
             <!-- <img src="你的頭像路徑.jpg"
                  alt="使用者頭像"
@@ -383,8 +392,7 @@
       <div class="modal-header">
         <div class="modal-title" id="phone-modal-title">編輯行動電話</div>
         <button class="close-button" onclick="closeModal('phone-modal')">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-            viewBox="0 0 256 256">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
             <path
               d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z">
             </path>
@@ -406,7 +414,9 @@
         <div class="modal-title">修改電子郵件</div>
         <button class="close-button" onclick="closeModal('main-email-modal')">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            <path
+              d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z">
+            </path>
           </svg>
         </button>
       </div>
@@ -442,7 +452,9 @@
         <button type="button" class="edit-button" onclick="enableEditing('user-code-input')"
           style="position: absolute; right: 10px; top: 46px; background: none; border: none; cursor: pointer;">
           <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.32,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z"></path>
+            <path
+              d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.32,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z">
+            </path>
           </svg>
         </button>
       </div>
@@ -469,7 +481,7 @@
       </div>
 
       <!-- 檔案上傳區 -->
-      <div
+      <!-- <div
         class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-4 transition-colors cursor-pointer"
         id="avatarUploadArea">
         <div class="upload-icon text-4xl text-gray-500 mb-2">
@@ -484,7 +496,37 @@
         </div>
         <div class="upload-text text-gray-600 mb-1">點擊或拖曳檔案至此處</div>
         <div class="upload-hint text-gray-400 text-sm">支援 JPG、PNG 格式，檔案大小不超過 5MB</div>
+      </div> -->
+      <div
+        class="upload-area border-2 border-dashed border-gray-300 rounded-lg p-6 text-center mb-4 transition-colors cursor-pointer relative"
+        id="avatarUploadArea">
+        <!-- 1) 預設顯示的上傳指示文字、圖示 -->
+        <div id="upload-placeholder" class="flex flex-col items-center justify-center">
+          <div class="upload-icon text-4xl text-gray-500 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 16 16">
+              <path
+                d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z">
+              </path>
+              <path
+                d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z">
+              </path>
+            </svg>
+          </div>
+          <div class="upload-text text-gray-600 mb-1">點擊或拖曳檔案至此處</div>
+          <div class="upload-hint text-gray-400 text-sm">支援 JPG、PNG 格式，檔案大小不超過 5MB</div>
+        </div>
+
+        <!-- 2) 圖片裁切區：一開始隱藏，選檔後顯示 -->
+        <div id="crop-container" class="absolute inset-0 hidden overflow-hidden">
+          <!-- 2a) 實際可拖曳的 <img> -->
+          <img id="crop-image" src="" class="absolute top-0 left-0 cursor-move" style="user-select: none;" />
+
+          <!-- 2b) 圓形遮罩：讓使用者知道要以哪個區域做最終頭像 -->
+          <div id="crop-overlay" class="pointer-events-none"></div>
+        </div>
       </div>
+
+
 
       <!-- 圖片預覽區 -->
       <div class="preview-container hidden mb-4 text-center" id="avatarUploadPreviewContainer">
