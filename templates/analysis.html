@@ -1,156 +1,163 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>消費分析｜高科銀行</title>
-        <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-        <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
-          href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
-        <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-        <link rel="stylesheet" href="{% static 'style/recive.css' %}">
-        <!-- 先載入 Chart.js，加 defer 等 DOM 解析完再執行 -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-        <!-- 再載入你的 analysis.js，也加 defer -->
-        <script src="{% static 'js/analysis.js' %}" defer></script>
-        <!-- html2pdf函式庫 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
-        <style>
-          .bg-blue-600{
-            --tw-bg-opacity: 1;
-            background-color: #49709c !important;
-          }
-        </style>
-    </head>
-    <body>
-      <!-- navbar -->
-      <div class="design-root">
-        <header>
-            <div class="logo-container">
-              <div class="logo">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-                    fill="currentColor"></path>
-                </svg>
-              </div>
-              <h2 class="brand-name">NKUST Bank</h2>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消費分析｜高科銀行</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link rel="stylesheet" href="{% static 'style/recive.css' %}">
+  <!-- 先載入 Chart.js，加 defer 等 DOM 解析完再執行 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="{% static 'js/analysis.js' %}" defer></script>
+  <script src="{% static 'js/personal_upload.js' %}" defer></script>
+  <!-- html2pdf函式庫 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+  <style>
+    .bg-blue-600 {
+      --tw-bg-opacity: 1;
+      background-color: #49709c !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- navbar -->
+  <div class="design-root">
+    <header>
+      <div class="logo-container">
+        <div class="logo">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+              fill="currentColor"></path>
+          </svg>
+        </div>
+        <h2 class="brand-name">NKUST Bank</h2>
+      </div>
+
+      <div class="nav-container">
+        <div class="main-nav">
+          <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
+          <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
+          <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
+          <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
+          <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
+          <a href="/login/" id="logoutBtn" class="btn-link">
+            <button class="btn btn-secondary btn-md">
+              <span class="btn-text">Log Out</span>
+            </button>
+          </a>
+        </div>
+
+        <div id="profileAvatar" class="avatar bg-center bg-no-repeat bg-cover rounded-full"
+          style="width: 2.5rem; height: 2.5rem;"></div>
+    </header>
+  </div>
+
+  <!-- main主區塊 -->
+  <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <!-- 頂部導航 -->
+    <div class="flex justify-between items-center mb-5">
+      <a href="{% url 'recive_page' %}" class="hover:text-blue-800 flex items-center" style="color:#49709c">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        回帳戶明細
+      </a>
+      <a href="#" id="downloadPdfBtn"
+        class="hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors flex items-center"
+        style="background-color: #49709c;">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        下載分析報告
+      </a>
+    </div>
+    <div id="reportSection">
+      <!-- 圖表區域 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <!-- 消費類別占比 -->
+        <div class="card p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">消費類別占比</h2>
+            <select id="periodSelect"
+              class="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+              <option value="3months">近三個月</option>
+              <option value="6months">近半年</option>
+              <option value="1year">近一年</option>
+            </select>
+          </div>
+          <div class="h-80">
+            <canvas id="chartDoughnut" width="602" height="287"
+              style="display: block; box-sizing: border-box;"></canvas>
+          </div>
+        </div>
+
+        <!-- 每月支出走勢 -->
+        <div class="card p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">每月支出走勢</h2>
+            <div class="flex space-x-2">
+              <button id="btnLine" class="px-3 py-1 text-sm rounded-md bg-blue-600 text-white">折線圖</button>
+              <button id="btnBar" class="px-3 py-1 text-sm rounded-md bg-gray-200 text-gray-700">柱狀圖</button>
             </div>
-
-            <div class="nav-container">
-              <div class="main-nav">
-                <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
-                <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
-                <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
-                <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
-                <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
-                <a href="/login/" id="logoutBtn" class="btn-link">
-                  <button class="btn btn-secondary btn-md">
-                    <span class="btn-text">Log Out</span>
-                  </button>
-                </a>
-              </div>
-
-              <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full" style="
-                    width: 2.5rem;
-                    height: 2.5rem;
-                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Po79iYR7-ksZ7A9PaurSHsjyFb0bDUM7Wrq__6odpyUHIy4eEOfMBDFF9W-ppcZbn9tJQ9wnsGUGfOwQJbYeUnZzLpastyCXna17C_SwtvQAvKo1Q8t8uS8tHrowAL5G34rGkvH7E12kjlNzjyu9ZdAw8TLrX1O6H36epF75Weawl2kxBE1yY0ctRs620JhHAwStaBftHyH0vWt4ssjoS77vzgCGVCISgzBR2GssKZ1C68SFZyqDcNaCkwPpbRPbABmlpf5Vp8');
-                  "></div>
-              </div>
-        </header>
+          </div>
+          <div class="h-80">
+            <canvas id="chartBar" width="602" height="287" style="display: block; box-sizing: border-box;"></canvas>
+          </div>
+          <div class="mt-4 text-sm text-gray-500">
+            <p>與上個月相比：
+              <span id="monthChange" class="text-red-500 font-medium">--</span>
+            </p>
+          </div>
+        </div>
       </div>
 
-      <!-- main主區塊 -->
-      <div class="container mx-auto px-4 py-8 max-w-6xl">
-          <!-- 頂部導航 -->
-          <div class="flex justify-between items-center mb-5">
-              <a href="{% url 'recive_page' %}" class="hover:text-blue-800 flex items-center" style="color:#49709c">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                回帳戶明細
-              </a>
-              <a href="#" id="downloadPdfBtn" class="hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors flex items-center" style="background-color: #49709c;">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                下載分析報告
-              </a>
+      <!-- 消費摘要 -->
+      <div class="card p-6 mb-8">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">消費摘要</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 最高消費類別 -->
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <p class="text-sm text-gray-600">最高消費類別</p>
+            <!-- 加 id -->
+            <p id="highestCategoryName" class="text-2xl font-bold text-blue-700">--</p>
+            <p id="highestCategoryAmount" class="text-lg">NT$ --</p>
           </div>
-          <div id="reportSection">
-              <!-- 圖表區域 -->
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                  <!-- 消費類別占比 -->
-                  <div class="card p-6">
-                  <div class="flex justify-between items-center mb-4">
-                      <h2 class="text-xl font-bold text-gray-800">消費類別占比</h2>
-                      <select id="periodSelect" class="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                      <option value="3months">近三個月</option>
-                      <option value="6months">近半年</option>
-                      <option value="1year">近一年</option>
-                      </select>
-                  </div>
-                  <div class="h-80">
-                      <canvas id="chartDoughnut" width="602" height="287" style="display: block; box-sizing: border-box;"></canvas>
-                  </div>
-                  </div>
 
-                  <!-- 每月支出走勢 -->
-                  <div class="card p-6">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-xl font-bold text-gray-800">每月支出走勢</h2>
-                        <div class="flex space-x-2">
-                        <button id="btnLine" class="px-3 py-1 text-sm rounded-md bg-blue-600 text-white">折線圖</button>
-                        <button id="btnBar" class="px-3 py-1 text-sm rounded-md bg-gray-200 text-gray-700">柱狀圖</button>
-                        </div>
-                    </div>
-                    <div class="h-80">
-                        <canvas id="chartBar" width="602" height="287" style="display: block; box-sizing: border-box;"></canvas>
-                    </div>
-                    <div class="mt-4 text-sm text-gray-500">
-                      <p>與上個月相比：
-                        <span id="monthChange" class="text-red-500 font-medium">--</span>
-                      </p>
-                    </div>
-                  </div>
-              </div>
-
-              <!-- 消費摘要 -->
-              <div class="card p-6 mb-8">
-                  <h2 class="text-xl font-bold text-gray-800 mb-4">消費摘要</h2>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- 最高消費類別 -->
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                      <p class="text-sm text-gray-600">最高消費類別</p>
-                      <!-- 加 id -->
-                      <p id="highestCategoryName" class="text-2xl font-bold text-blue-700">--</p>
-                      <p id="highestCategoryAmount" class="text-lg">NT$ --</p>
-                    </div>
-
-                    <!-- 平均每日消費 -->
-                    <div class="bg-green-50 p-4 rounded-lg">
-                      <p id="avgDailyLabel" class="text-sm text-gray-600">平均每日消費</p>
-                      <!-- 加 id -->
-                      <p id="avgDailyAmount" class="text-2xl font-bold text-green-700">NT$ --</p>
-                      <p class="text-lg">
-                        較上期
-                        <!-- 加 id -->
-                        <span id="avgDailyChange" class="text-green-500">--</span>
-                      </p>
-                    </div>
-
-                    <!-- 總支出（標題文字和金額都可動態更新） -->
-                    <div class="bg-purple-50 p-4 rounded-lg">
-                      <!-- 這裡把「近三個月總支出」改成 <p id="totalLabel"> 供 JS 更新文字 -->
-                        <p id="periodTotalLabel" class="text-sm text-gray-600">近三個月總支出</p>
-                        <p id="periodTotalAmount" class="text-2xl font-bold text-purple-700">NT$ --</p>
-                    </div>
-                  </div>
-              </div>
+          <!-- 平均每日消費 -->
+          <div class="bg-green-50 p-4 rounded-lg">
+            <p id="avgDailyLabel" class="text-sm text-gray-600">平均每日消費</p>
+            <!-- 加 id -->
+            <p id="avgDailyAmount" class="text-2xl font-bold text-green-700">NT$ --</p>
+            <p class="text-lg">
+              較上期
+              <!-- 加 id -->
+              <span id="avgDailyChange" class="text-green-500">--</span>
+            </p>
           </div>
+
+          <!-- 總支出（標題文字和金額都可動態更新） -->
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <!-- 這裡把「近三個月總支出」改成 <p id="totalLabel"> 供 JS 更新文字 -->
+            <p id="periodTotalLabel" class="text-sm text-gray-600">近三個月總支出</p>
+            <p id="periodTotalAmount" class="text-2xl font-bold text-purple-700">NT$ --</p>
+          </div>
+        </div>
       </div>
-      
-      
-    </body>
+    </div>
+  </div>
+
+
+</body>
+
 </html>

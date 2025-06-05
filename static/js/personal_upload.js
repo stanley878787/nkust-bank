@@ -20,34 +20,132 @@ const ABS_MIN_SCALE = 0.1;
 
 let baseW, baseH, scale, minScale, maxScale;
 
-// 2. 頁面一載入，就拿 user 資料，包含 avatar_base64
+// 頁面一載入，就拿 user 資料，包含 avatar_base64
 window.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('accessToken');
   if (!token) return;
 
-  fetch('/personal/api/info/', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
-  })
-    .then(res => {
-      if (!res.ok) throw new Error('無法取得個人資料');
-      return res.json();
-    })
-    .then(data => {
-      if (data.avatar_base64) {
-        existingAvatar.style.backgroundImage = `url(${data.avatar_base64})`;
-        existingAvatar.classList.add('has-image');
+  if (existingAvatar) {
+    fetch('/personal/api/info/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
       }
     })
-    .catch(err => {
-      console.error(err);
+      .then(res => {
+        if (!res.ok) throw new Error('無法取得個人資料');
+        return res.json();
+      })
+      .then(data => {
+        // console.log('Personal Info 回傳：', data);
+        // if (data.avatar_base64) {
+        //   existingAvatar.style.backgroundImage = `url(${data.avatar_base64})`;
+        //   existingAvatar.classList.add('has-image');
+        // }
+        if (data.avatar_url) {
+          existingAvatar.style.backgroundImage = `url(${data.avatar_url})`;
+          existingAvatar.classList.add('has-image');
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  if (avatarUploadOverlay && avatarUploadModal) {
+    // 1) 點 existingAvatar 就開 Modal
+    if (existingAvatar) {
+      existingAvatar.style.cursor = 'pointer';
+      existingAvatar.addEventListener('click', openAvatarUploadModal);
+    }
+    // 2) 綁定 Modal 關閉按鈕
+    btnCloseUpload.addEventListener('click', closeAvatarUploadModal);
+    btnCancelUpload.addEventListener('click', closeAvatarUploadModal);
+    avatarUploadOverlay.addEventListener('click', e => {
+      if (e.target === avatarUploadOverlay) closeAvatarUploadModal();
     });
+
+    // 3) 綁定上傳區點擊、拖放
+    uploadArea.addEventListener('click', e => {
+      if (uploadArea.classList.contains('cropping')) {
+        e.stopPropagation();
+        return;
+      }
+      fileInput.click();
+    });
+    uploadArea.addEventListener('dragover', e => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#3b82f6';
+      uploadArea.style.backgroundColor = '#f1f5f9';
+    });
+    uploadArea.addEventListener('dragleave', e => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '';
+      uploadArea.style.backgroundColor = '';
+    });
+    uploadArea.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '';
+      uploadArea.style.backgroundColor = '';
+      if (e.dataTransfer.files.length) {
+        handleAvatarFile(e.dataTransfer.files[0]);
+      }
+    });
+    fileInput.addEventListener('change', e => {
+      if (e.target.files.length > 0) {
+        handleAvatarFile(e.target.files[0]);
+      }
+    });
+  }
 });
 
-// 3. 其餘 Modal 打開/關閉、拖拉、檔案選取等等照原本做
+// existingAvatar?.addEventListener('click', openAvatarUploadModal);
+// btnCloseUpload.addEventListener('click', closeAvatarUploadModal);
+// btnCancelUpload.addEventListener('click', closeAvatarUploadModal);
+
+// avatarUploadOverlay.addEventListener('click', (e) => {
+//   if (e.target === avatarUploadOverlay) {
+//     closeAvatarUploadModal();
+//   }
+// });
+
+// // 當上傳區被點擊 或 拖拽檔案到此時，觸發 input type="file" 點擊
+// // uploadArea.addEventListener('click', () => fileInput.click());
+// uploadArea.addEventListener('click', (e) => {
+//   // 如果已經進入裁切模式（cropping），就不再打開 fileInput
+//   if (uploadArea.classList.contains('cropping')) {
+//     e.stopPropagation();
+//     return;
+//   }
+//   // 否則才真正觸發 fileInput
+//   fileInput.click();
+// });
+// uploadArea.addEventListener('dragover', (e) => {
+//   e.preventDefault();
+//   uploadArea.style.borderColor = '#3b82f6';
+//   uploadArea.style.backgroundColor = '#f1f5f9';
+// });
+// uploadArea.addEventListener('dragleave', (e) => {
+//   e.preventDefault();
+//   uploadArea.style.borderColor = '';
+//   uploadArea.style.backgroundColor = '';
+// });
+// uploadArea.addEventListener('drop', (e) => {
+//   e.preventDefault();
+//   uploadArea.style.borderColor = '';
+//   uploadArea.style.backgroundColor = '';
+//   if (e.dataTransfer.files.length) {
+//     handleAvatarFile(e.dataTransfer.files[0]);
+//   }
+// });
+
+// // 處理使用者選檔或拖檔，並顯示到 crop 區域
+// fileInput.addEventListener('change', (e) => {
+//   if (e.target.files.length > 0) {
+//     handleAvatarFile(e.target.files[0]);
+//   }
+// });
+
+// Modal 打開/關閉、拖拉、檔案選取等等照原本做
 function openAvatarUploadModal() {
   avatarUploadOverlay.classList.remove('opacity-0', 'pointer-events-none');
   avatarUploadOverlay.classList.add('opacity-100', 'active');
@@ -68,52 +166,6 @@ function closeAvatarUploadModal() {
     avatarUploadOverlay.classList.add('opacity-0', 'pointer-events-none');
   }, 200);
 }
-
-existingAvatar?.addEventListener('click', openAvatarUploadModal);
-btnCloseUpload.addEventListener('click', closeAvatarUploadModal);
-btnCancelUpload.addEventListener('click', closeAvatarUploadModal);
-avatarUploadOverlay.addEventListener('click', (e) => {
-  if (e.target === avatarUploadOverlay) {
-    closeAvatarUploadModal();
-  }
-});
-
-// 當上傳區被點擊 或 拖拽檔案到此時，觸發 input type="file" 點擊
-// uploadArea.addEventListener('click', () => fileInput.click());
-uploadArea.addEventListener('click', (e) => {
-  // 如果已經進入裁切模式（cropping），就不再打開 fileInput
-  if (uploadArea.classList.contains('cropping')) {
-    e.stopPropagation();
-    return;
-  }
-  // 否則才真正觸發 fileInput
-  fileInput.click();
-});
-uploadArea.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  uploadArea.style.borderColor = '#3b82f6';
-  uploadArea.style.backgroundColor = '#f1f5f9';
-});
-uploadArea.addEventListener('dragleave', (e) => {
-  e.preventDefault();
-  uploadArea.style.borderColor = '';
-  uploadArea.style.backgroundColor = '';
-});
-uploadArea.addEventListener('drop', (e) => {
-  e.preventDefault();
-  uploadArea.style.borderColor = '';
-  uploadArea.style.backgroundColor = '';
-  if (e.dataTransfer.files.length) {
-    handleAvatarFile(e.dataTransfer.files[0]);
-  }
-});
-
-// 處理使用者選檔或拖檔，並顯示到 crop 區域
-fileInput.addEventListener('change', (e) => {
-  if (e.target.files.length > 0) {
-    handleAvatarFile(e.target.files[0]);
-  }
-});
 
 function resetAvatarUploadState() {
   fileInput.value = '';
@@ -240,15 +292,15 @@ function enableWheelZoom() {
 
     applyTransform(false);                               // 重設 width / height
 
-  //   /* 校正 left / top，讓滑鼠下的點維持原地 */
-  //   cropImage.style.left = parseFloat(cropImage.style.left) - (mx * (ratio - 1)) + 'px';
-  //   cropImage.style.top = parseFloat(cropImage.style.top) - (my * (ratio - 1)) + 'px';
-  // }, { passive: false });
-   const boxW = uploadArea.clientWidth;
+    //   /* 校正 left / top，讓滑鼠下的點維持原地 */
+    //   cropImage.style.left = parseFloat(cropImage.style.left) - (mx * (ratio - 1)) + 'px';
+    //   cropImage.style.top = parseFloat(cropImage.style.top) - (my * (ratio - 1)) + 'px';
+    // }, { passive: false });
+    const boxW = uploadArea.clientWidth;
     const boxH = uploadArea.clientHeight;
     cropImage.style.left = (boxW - cropImage.offsetWidth) / 2 + 'px';
-    cropImage.style.top  = (boxH - cropImage.offsetHeight) / 2 + 'px';
-  }, { passive:false });
+    cropImage.style.top = (boxH - cropImage.offsetHeight) / 2 + 'px';
+  }, { passive: false });
 }
 
 // 實作「滑鼠拖曳 cropImage」：限制不會拖到空白
@@ -423,13 +475,13 @@ function resetAvatarUploadState() {
 }
 
 function applyTransform(center = false) {
-  cropImage.style.width  = baseW * scale + 'px';
+  cropImage.style.width = baseW * scale + 'px';
   cropImage.style.height = baseH * scale + 'px';
 
   if (center) {                      // 只有第一次載入需要置中
     const boxW = uploadArea.clientWidth;
     const boxH = uploadArea.clientHeight;
     cropImage.style.left = (boxW - cropImage.offsetWidth) / 2 + 'px';
-    cropImage.style.top  = (boxH - cropImage.offsetHeight) / 2 + 'px';
+    cropImage.style.top = (boxH - cropImage.offsetHeight) / 2 + 'px';
   }
 }

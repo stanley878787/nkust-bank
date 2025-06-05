@@ -1,0 +1,7 @@
+.avatar {
+  /* 預設可以讓背景置中、截圖、切圓形... */
+  background-size: cover;
+  background-position: center;
+  border-radius: 9999px; /* 對應 Tailwind 的 rounded-full */
+  background-repeat: no-repeat;
+}

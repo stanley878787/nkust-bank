@@ -12,6 +12,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="{% static 'style/recive.css' %}" />
   <script src="{% static 'js/jwt_session_timeout.js' %}" defer></script>
+  <script src="{% static 'js/personal_upload.js' %}" defer></script>
 </head>
 
 <body>
@@ -45,12 +46,8 @@
               </button>
             </a>
           </div>
-          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full" style="
-                width: 2.5rem;
-                height: 2.5rem;
-                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-7Po79iYR7-ksZ7A9PaurSHsjyFb0bDUM7Wrq__6odpyUHIy4eEOfMBDFF9W-ppcZbn9tJQ9wnsGUGfOwQJbYeUnZzLpastyCXna17C_SwtvQAvKo1Q8t8uS8tHrowAL5G34rGkvH7E12kjlNzjyu9ZdAw8TLrX1O6H36epF75Weawl2kxBE1yY0ctRs620JhHAwStaBftHyH0vWt4ssjoS77vzgCGVCISgzBR2GssKZ1C68SFZyqDcNaCkwPpbRPbABmlpf5Vp8');
-              ">
-          </div>
+          <div id="profileAvatar" class="avatar bg-center bg-no-repeat bg-cover rounded-full"
+            style="width: 2.5rem; height: 2.5rem;"></div>
         </div>
       </header>
 
