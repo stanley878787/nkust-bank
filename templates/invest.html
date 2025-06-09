@@ -51,7 +51,7 @@
           <div id="profileAvatar" class="avatar bg-center bg-no-repeat bg-cover rounded-full"
           style="width: 2.5rem; height: 2.5rem;"></div>
         </div>
-      </header>
+        </header>
 
         <div class="main-content">
         <div class="content-container">
@@ -189,74 +189,68 @@
             </div>
 
 
-             <!-- 交易區塊 -->
+            <!-- 交易區塊 -->
+
+
             <div id="trading-section" style="display: none;">
                 <div class="trading-section">
-                    <h2 class="heading-lg" style="margin-bottom: 1rem;">交易下單</h2>
-                        
-                    <div class="trading-header">
-                        <button class="trade-type-btn active">買入</button>
-                        <button class="trade-type-btn">賣出</button>
+                    <div>
+                        <div>
+                            <label class="form-label">
+                                <p class="label-text">輸入股票代碼</p>
+                                <!-- <input type="text" class="form-input" placeholder="" /> -->
+                                <input id="find_stock" name="find_stock-no" type="text" class="form-input" placeholder="請輸入股票代號搜尋"
+                                    required />
+                            </label>
+                        </div>
+                        <div class="stock-header">
+                            <div class="stock-info">
+                                <h2>台積電</h2>
+                                <div class="stock-code">2330</div>
+                            </div>
+                            <div class="stock-price">
+                                <div class="current-price">994</div>
+                                <div class="price-change negative">-0.3 (-0.01%)</div>
+                            </div>
+                        </div>
+
+                        <div class="trade-section">
+                            <div class="trade-buttons">
+                                <button class="trade-btn buy-btn active" onclick="selectTradeType('buy')">買進</button>
+                                <button class="trade-btn sell-btn" onclick="selectTradeType('sell')">賣出</button>
+                            </div>
+
+                            <div class="quantity-section">
+                                <div class="quantity-label">數量</div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="changeQuantity(-1)">−</button>
+                                    <div class="quantity-display" id="quantity">2</div>
+                                    <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="amount-section">
+                                <div class="amount-row">
+                                    <span class="amount-label">預估金額</span>
+                                    <span class="amount-value" id="estimatedAmount">1,988</span>
+                                </div>
+                                <div class="amount-row">
+                                    <span class="amount-label">銀行餘額</span>
+                                    <span class="amount-value">1,086,000</span>
+                                </div>
+                            </div>
+
+                            <button class="submit-btn" onclick="submitOrder()">下單</button>
+                        </div>
                     </div>
-
-                    <form class="trading-form" onsubmit="handleTrade(event)">
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label">投資商品</label>
-                                <select class="form-input" id="tradingProduct" required>
-                                    <option value="">請選擇投資商品</option>
-                                    <option value="2330">台積電 (2330)</option>
-                                    <option value="2603">長榮 (2603)</option>
-                                    <option value="0050">元大台灣50 (0050)</option>
-                                    <option value="fund1">美國科技基金</option>
-                                    <option value="btc">比特幣 (BTC)</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">交易數量</label>
-                                <input type="number" class="form-input" id="tradingQuantity" 
-                                        placeholder="請輸入交易數量" min="1" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">交易價格</label>
-                                <input type="number" class="form-input" id="tradingPrice" 
-                                        placeholder="請輸入交易價格" step="0.01" min="0" required>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label">訂單類型</label>
-                                <select class="form-input" id="orderType">
-                                    <option value="market">市價單</option>
-                                    <option value="limit">限價單</option>
-                                    <option value="stop">停損單</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">預估金額</label>
-                                <input type="text" class="form-input" id="estimatedAmount" 
-                                        placeholder="$0" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
-                                    <span class="btn-text" id="tradeButtonText">確認買入</span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
 
 
 
         </div>
-      </div>
+    </div>
 
-      <div id="toast" class="toast"></div>
+    <div id="toast" class="toast"></div>
   </body>
 </html>
