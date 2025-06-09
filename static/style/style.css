@@ -824,36 +824,6 @@ header {
   margin-bottom: 20px;
 }
 
-.trade-btn {
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.buy-btn {
-  background: #22c55e;
-  color: white;
-}
-
-.buy-btn:hover {
-  background: #16a34a;
-  transform: translateY(-2px);
-}
-
-.sell-btn {
-  background: #64748b;
-  color: white;
-}
-
-.sell-btn:hover {
-  background: #475569;
-  transform: translateY(-2px);
-}
-
 .stock-header {
   display: flex;
   justify-content: space-between;

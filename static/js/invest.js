@@ -25,3 +25,5 @@ function switchTab(tab) {
 
   currentTab = tab;
 }
+
+// static/js/invest.js

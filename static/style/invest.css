@@ -5,3 +5,104 @@
   border-radius: 9999px; /* 對應 Tailwind 的 rounded-full */
   background-repeat: no-repeat;
 }
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.stock-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.stock-code {
+  font-size: 1rem;
+  color: #ffffff;
+}
+.stock-price {
+  text-align: right;
+}
+.current-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.price-change.positive {
+  color: #228B22;
+  font:bold;
+}
+.price-change.negative {
+  color: #B22222;
+  font:bold;
+}
+
+/* Toast 本體，預設隱藏 */
+#toast {
+  position: fixed;
+  right: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 9999;
+}
+
+/* 顯示時 */
+#toast.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 成功樣式：綠底白字 */
+#toast.toast-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* 錯誤樣式：紅底白字 */
+#toast.toast-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+
+/* 買進按鈕被選中 */
+.trade-btn.buy-btn.active {
+  background-color: #22c55e;
+  color: #fff;
+  box-shadow: none !important;
+}
+
+/* 賣出按鈕被選中（active）時：鮮豔紅 */
+.trade-btn.sell-btn.active {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+.trade-btn {
+  background-color: #334155;  /* 淺灰 */
+  color: #ffffff;             /* 深灰字 */
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buy-btn:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+.sell-btn:hover {
+  background: #ef4444;
+  transform: translateY(-2px);
+}
+
+.hidden {
+  display: none !important;
+}

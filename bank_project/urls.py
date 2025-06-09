@@ -44,14 +44,17 @@ urlpatterns = [
     # 投資
     path('invest/', InvestPage.as_view(), name="invest_page"),
 
-    #明細
+    # 明細
     path('recive/', RecivePage.as_view(), name="recive_page"),
 
+    # 分析
     path('analysis/', AnalysisPage.as_view(), name='analysis_page'),
 
     #個人資料
     path('personal/', PersonalPage.as_view(), name='personal_page'),
 
+    # 投資
+    path('investments/', include('investments.urls')),
 
     # 管理後台
     path('admin/', admin.site.urls),
@@ -62,7 +65,7 @@ urlpatterns = [
     path("api/v1/", include( ("accounts.urls","accounts"), namespace='accounts' )),
 
     # 把 personal app 的 URL 加進來
-    path('personal/', include('personal.urls')),  # 這樣 /personal/api/info/ 就能被找到
+    path('personal/', include('personal.urls')),
 
     # Captcha 圖形驗證碼
     path('captcha/', include('captcha.urls')),
