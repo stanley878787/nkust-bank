@@ -14,3 +14,4 @@ pytest-django
 django-cors-headers
 django-simple-captcha
 twilio
+yfinance

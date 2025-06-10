@@ -1,13 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
-  <head>
+
+<head>
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" />
 
     <title>高科銀行</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
@@ -17,86 +14,49 @@
     <script src="{% static 'js/invest.js' %}" defer></script>
     <script src="{% static 'js/jwt_session_timeout.js' %}" defer></script>
     <script src="{% static 'js/personal_upload.js' %}" defer></script>
-    <style>
-        .suggestion-item {
-            padding: 10px 12px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: left; /* 文字靠左 */
-        }
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-        .suggestion-item:hover {
-            background-color: #e0f2fe;
-        }
-        /* 以下為下拉清單容器樣式 */
-        .suggestions-container {
-            position: relative;
-            margin-bottom: 30px;
-        }
-        #suggestions {
-            position: absolute;
-            top: calc(100% + 4px);
-            left: 0;
-            width: 100%;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            max-height: 240px;
-            overflow-y: auto;
-            z-index: 100;
-        }
-        #suggestions.hidden {
-            display: none;
-        }
-    </style>
-  </head>
-  <body>
+
+</head>
+
+<body>
     <div class="container">
         <header>
-        <a href="{% url 'dashboard_page' %}" style="text-decoration: none;"><div class="logo-container">
-          <div class="logo">
-            <svg
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
-          <h2 class="brand-name">NKUST Bank</h2>
-        </div></a>
+            <a href="{% url 'dashboard_page' %}" style="text-decoration: none;">
+                <div class="logo-container">
+                    <div class="logo">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h2 class="brand-name">NKUST Bank</h2>
+                </div>
+            </a>
 
-        <div class="nav-container">
-            <div class="main-nav">
-                <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
-                <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
-                <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
-                <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
-                <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
-                <a href="/login/" id="logoutBtn" class="btn-link">
-                    <button class="btn btn-secondary btn-md">
-                    <span class="btn-text">Log Out</span>
-                    </button>
-                </a>
-            </div>
+            <div class="nav-container">
+                <div class="main-nav">
+                    <a class="nav-link" href="{% url 'dashboard_page' %}">帳務總覽</a>
+                    <a class="nav-link" href="{% url 'transfer_page' %}">轉帳</a>
+                    <a class="nav-link" href="{% url 'invest_page' %}">投資</a>
+                    <a class="nav-link" href="{% url 'recive_page' %}">明細查詢</a>
+                    <a class="nav-link" href="{% url 'personal_page' %}">個人資料</a>
+                    <a href="/login/" id="logoutBtn" class="btn-link">
+                        <button class="btn btn-secondary btn-md">
+                            <span class="btn-text">Log Out</span>
+                        </button>
+                    </a>
+                </div>
 
-            <div id="profileAvatar" class="avatar bg-center bg-no-repeat bg-cover rounded-full"
-                style="width: 2.5rem; height: 2.5rem;"></div>
+                <div id="profileAvatar" class="avatar bg-center bg-no-repeat bg-cover rounded-full"
+                    style="width: 2.5rem; height: 2.5rem;"></div>
             </div>
         </header>
 
         <div class="main-content">
-        <div class="content-container">
-            <div class="stats-container">
+            <div class="content-container">
+                <div class="stats-container">
                     <div class="stat-card positive">
-                        <div class="stat-label">總預估現值 (TWD)</div>
+                        <div class="stat-label">總現值 (TWD)</div>
                         <div class="stat-value" id="totalEstimatedValue">–</div>
                     </div>
                     <div class="stat-card">
@@ -105,645 +65,114 @@
                     </div>
                     <div class="stat-card positive">
                         <div style="display: flex;">
-                            <div class="stat-label">總預估損益</div>
+                            <div class="stat-label">總損益</div>
                         </div>
                         <div class="stat-value positive" id="totalProfit">–</div>
                     </div>
-            </div>
-
-            <div class="tab-container">
-                <div class="tab tab-active" onclick="switchTab('investments')">
-                    <span class="tab-text">我的投資</span>
                 </div>
-                <div class="tab tab-inactive" onclick="switchTab('trading')">
-                    <span class="tab-text">交易下單</span>
-                </div>
-            </div>
 
-
-            <!-- 投資項目展示 -->
-            <div id="investments-section">
-                <div class="investment-grid">
-                    <div class="investment-item">
-
+                <div class="tab-container">
+                    <div class="tab tab-active" onclick="switchTab('investments')">
+                        <span class="tab-text">我的投資</span>
+                    </div>
+                    <div class="tab tab-inactive" onclick="switchTab('trading')">
+                        <span class="tab-text">交易下單</span>
                     </div>
                 </div>
-            </div>
 
 
-            <!-- 交易區塊 -->
+                <!-- 投資項目展示 -->
+                <div id="investments-section">
+                    <div class="investment-grid">
+                        <div class="investment-item">
+
+                        </div>
+                    </div>
+                </div>
 
 
-            <div id="trading-section" style="display: none;">
-                <div class="trading-section">
-                    <div>
+                <!-- 交易區塊 -->
+
+
+                <div id="trading-section" style="display: none;">
+                    <div class="trading-section">
                         <div>
-                            <!-- 只調整下拉部分：保持原有類別不動 -->
-                            <div class="suggestions-container">
-                                <label for="stockInput" class="block text-gray-700 mb-2"  style="font-weight: bold;">
-                                    請輸入股票代碼：
-                                </label>
-                                <input type="text" id="stockInput" class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" placeholder="輸入股票代碼，例如：2330" autocomplete="off"/>
-                                <div id="suggestions" class="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto hidden" >
-                                    <!-- 這裡不做任何靜態項目，JavaScript 會動態塞入 -->
+                            <div>
+                                <!-- 只調整下拉部分：保持原有類別不動 -->
+                                <div class="suggestions-container">
+                                    <label for="stockInput" class="block text-gray-700 mb-2" style="font-weight: bold;">
+                                        請輸入股票代碼：
+                                    </label>
+                                    <input type="text" id="stockInput"
+                                        class="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                                        placeholder="輸入股票代碼，例如：2330" autocomplete="off" />
+                                    <div id="suggestions"
+                                        class="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto hidden">
+                                        <!-- 這裡不做任何靜態項目，JavaScript 會動態塞入 -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="stock-header" id="stockHeader" style="display: none;">
-                            <div class="stock-info">
-                                <h2> － </h2>
-                                <div class="stock-code"> － </div>
-                            </div>
-                            <div class="stock-price">
-                                <div class="current-price"> － </div>
-                                <div class="price-change negative"> － </div>
-                            </div>
-                        </div>
-
-                        <div class="trade-section">
-                            <div class="trade-buttons">
-                                <button class="trade-btn buy-btn active">買進</button>
-                                <button class="trade-btn sell-btn">賣出</button>
-                            </div>
-
-                            <div class="quantity-section">
-                                <div class="quantity-label">數量（1000股為單位）</div>
-                                <div class="quantity-controls">
-                                    <!-- 預設禁用 -->
-                                    <button id="decreaseBtn" class="quantity-btn" onclick="changeQuantity(-1)" disabled>−</button>
-                                    <div class="quantity-display" id="quantity">–</div>
-                                    <button id="increaseBtn" class="quantity-btn" onclick="changeQuantity(1)" disabled>+</button>
-
+                            <div class="stock-header" id="stockHeader" style="display: none;">
+                                <div class="stock-info">
+                                    <h2> － </h2>
+                                    <div class="stock-code"> － </div>
                                 </div>
-                              </div>
-
-                            <div class="amount-section">
-                                <div class="amount-row">
-                                    <span class="amount-label">預估金額</span>
-                                    <!-- 預設顯示「–」 -->
-                                    <span class="amount-value" id="estimatedAmount">–</span>
-                                </div>
-                                <div class="amount-row" id="bank-row">
-                                    <span class="amount-label">銀行餘額</span>
-                                    <span class="amount-value" id="bankBalance">–</span>
+                                <div class="stock-price">
+                                    <div class="current-price"> － </div>
+                                    <div class="price-change negative"> － </div>
                                 </div>
                             </div>
 
-                            <button class="submit-btn" onclick="submitOrder()">下單</button>
+                            <div class="trade-section">
+                                <div class="trade-buttons">
+                                    <button id="buyBtn" class="trade-btn buy-btn btn-disabled" disabled>買進</button>
+                                    <button id="sellBtn" class="trade-btn sell-btn btn-disabled" disabled>賣出</button>
+                                </div>
+
+                                <div class="quantity-section">
+                                    <div class="quantity-label">數量（1000股為單位）</div>
+                                    <div class="quantity-controls">
+                                        <!-- 預設禁用 -->
+                                        <button id="decreaseBtn" class="quantity-btn" onclick="changeQuantity(-1)"
+                                            disabled>−</button>
+                                        <!-- <div class="quantity-display" id="quantity">–</div> -->
+                                        <input type="number" id="quantity" class="quantity-display" min="1" step="1"
+                                            placeholder="–" value="" disabled />
+                                        <button id="increaseBtn" class="quantity-btn" onclick="changeQuantity(1)"
+                                            disabled>+</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="amount-section">
+                                    <div class="amount-row">
+                                        <span class="amount-label">預估金額</span>
+                                        <!-- 預設顯示「–」 -->
+                                        <span class="amount-value" id="estimatedAmount">–</span>
+                                    </div>
+                                    <div class="amount-row" id="profit-row" style="display:none;">
+                                        <span class="amount-label">預估獲利</span>
+                                        <span class="amount-value" id="estimatedProfit">–</span>
+                                    </div>
+                                    <div class="amount-row" id="bank-row">
+                                        <span class="amount-label">投資帳號餘額</span>
+                                        <span class="amount-value" id="bankBalance">–</span>
+                                    </div>
+                                </div>
+
+                                <button id="submitBtn" class="submit-btn btn-disabled" disabled
+                                    onclick="submitOrder()">整張下單</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
-
-
-
         </div>
-    </div>
 
-    <div id="toast" class="toast"></div>
+        <div id="toast" class="toast"></div>
+</body>
 
-
-    <script>
-
-        // 全域宣告 (只做 let，不做 document.getElementById)
-        let tradeType;
-        let maxQty;
-        let currentHoldings;
-
-        // 以下這些也要全域宣告，讓所有函式都能拿到
-        let decreaseBtn, increaseBtn;
-        let quantityEl, estimatedEl;
-        let symbolEl, nameEl, priceEl;
-        let inputElement, suggestionsElement;
-        let submitBtn;
-
-        function showToast(message, type = "success", duration = 3000) {
-            const toast = document.getElementById("toast");
-            toast.textContent = message;
-
-            // 移除舊的 type class
-            toast.classList.remove("toast-success", "toast-error", "show");
-
-            // 加上新的 type
-            toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-            // 顯示
-            toast.classList.add("show");
-
-            // 一段時間後隱藏
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, duration);
-        }
-
-        function submitOrder() {
-            // 1. 驗證 estimatedAmount 不是「–」
-            const estText = estimatedEl.textContent.trim();
-            if (!estText || estText === "–") {
-                return showToast("請先選擇股票並確認預估金額！", "error");
-            }
-
-            // 2. 組出要傳的資料
-            const payload = {
-                symbol:     symbolEl.textContent.trim(),
-                name:       nameEl.textContent.trim(),
-                unit_price: parseFloat(priceEl.textContent.replace(/,/g, "")),
-                quantity:   parseInt(quantityEl.textContent, 10),
-                total:      parseFloat(estText.replace(/,/g, "")),
-            };
-
-            // 3. 讀 access token
-            const token = localStorage.getItem("accessToken");
-            if (!token) {
-                showToast("未授權，請重新登入。", "error");
-                return window.location.href = "/login/";  // 或你專案的登入頁
-            }
-
-            // 4. 送 AJAX 請求
-            fetch("/investments/api/place_order/", {
-                method:  "POST",
-                headers: {
-                "Content-Type":  "application/json",
-                "Authorization": `Bearer ${token}`,
-                },
-                body: JSON.stringify(payload),
-            })
-            .then(async res => {
-                if (res.status === 401) {
-                // 未授權
-                showToast("未授權，請重新登入。", "error");
-                return window.location.href = "/login/";
-                }
-                if (!res.ok) {
-                const err = await res.json().catch(() => ({}));
-                throw new Error(err.error || `HTTP ${res.status}`);
-                }
-                return res.json();
-            })
-            .then(json => {
-                // 1) 顯示成功訊息，持續 1.5 秒
-                const duration = 1500;
-                showToast("下單成功！", "success", duration);
-
-                // ✅ 加這一行來即時更新銀行餘額
-                fetchAndDisplayNTDBalance();
-
-                // 2) 存一個 flag，讓頁面重整後知道要切到 invest tab
-                localStorage.setItem("activeTab", "investments");
-                resetStockSelection();
-                // 3) 重新整理頁面
-                setTimeout(() => {
-                    window.location.reload();
-                }, duration);
-
-            })
-            .catch(err => {
-                console.error("下單錯誤：", err);
-                showToast("下單失敗：" + err.message, "error");
-            });
-        }
-
-        // 一次性把所有下單相關欄位還原到初始「未選股」狀態
-        function resetStockSelection() {
-            // 1. 清空輸入框、隱藏建議清單
-            const inputEl       = document.querySelector("#stockInput");
-            const suggestionsEl = document.getElementById("suggestions");
-            inputEl.value       = "";
-            suggestionsEl.classList.add("hidden");
-
-            // 2. 隱藏股票資訊區塊
-            const headerEl = document.getElementById("stockHeader");
-            headerEl.style.display = "none";
-
-            // 3. 鎖住數量加減鈕、下單鈕，並顯示「–」
-            const decreaseBtn = document.getElementById("decreaseBtn");
-            const increaseBtn = document.getElementById("increaseBtn");
-            const submitBtn   = document.getElementById("submitBtn");
-            const quantityEl  = document.getElementById("quantity");
-            const estimatedEl = document.getElementById("estimatedAmount");
-
-            decreaseBtn.disabled = true;
-            increaseBtn.disabled = true;
-            if (submitBtn) submitBtn.disabled = true;
-
-            quantityEl.textContent  = "–";
-            estimatedEl.textContent = "–";
-
-            // 4. （可選）也把 Price 與 Change 還原成空
-            const priceEl  = document.querySelector(".current-price");
-            const changeEl = document.querySelector(".price-change");
-            priceEl.textContent  = "–";
-            changeEl.textContent = "–";
-        }
-
-        function changeQuantity(delta) {
-            // 取得並清理文字內容
-            const rawText = quantityEl.textContent.trim();
-            const currentQty = parseInt(rawText, 10);
-
-            // 如果無法解析為數字，直接跳出
-            if (isNaN(currentQty)) {
-                console.warn("無法解析數量：", rawText);
-                return;
-            }
-
-            // 計算新數量
-            let newQty = currentQty + delta;
-            newQty = Math.max(1, Math.min(maxQty, newQty));
-
-            quantityEl.textContent = newQty;
-
-            // 根據新數量控制按鈕狀態
-            decreaseBtn.disabled = newQty <= 1;
-            increaseBtn.disabled = newQty >= maxQty;
-
-            updateAmountDisplays();
-        }
-
-        function updateAmountDisplays() {
-            const price = parseFloat(priceEl.textContent.replace(/,/g, ""));
-            const qtyUnits = parseInt(quantityEl.textContent, 10);
-            const shares = qtyUnits * 1000;
-
-            if (tradeType === 'sell') {
-                // 預估賣出總金額
-                const estSell = price * shares;
-                estimatedEl.textContent = estSell.toLocaleString();
-
-                // 總成本
-                const avgCost = currentHoldings[symbolEl.textContent].avgCost;
-                const totalCost = avgCost * shares;
-
-                // 預估獲利
-                const profit = estSell - totalCost;
-                const sign = profit >= 0 ? '+' : '-';
-                const profitText = sign + Math.abs(profit).toLocaleString();
-
-                // 顯示／更新獲利那一行
-                document.getElementById('estimatedProfit').textContent = profitText;
-
-                // 同步更新上方卡片
-                const profitEl = document.getElementById('totalProfit');
-                profitEl.textContent = profitText;
-                profitEl.className = `stat-value ${profit >= 0 ? 'positive' : 'negative'}`;
-
-            } else {
-                // 預估買進總金額
-                const estBuy = price * shares;
-                estimatedEl.textContent = estBuy.toLocaleString();
-            }
-        }
-
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // 1. 定義全域變數 & 抓 DOM
-            let tradeType = 'buy';
-            let maxQty = Infinity;
-
-            // 2. 初始化
-            const buyBtn        = document.querySelector('.buy-btn');
-            const sellBtn       = document.querySelector('.sell-btn');
-            decreaseBtn       = document.getElementById('decreaseBtn');
-            increaseBtn       = document.getElementById('increaseBtn');
-            quantityEl        = document.getElementById('quantity');
-            estimatedEl       = document.getElementById('estimatedAmount');
-            symbolEl          = document.querySelector('.stock-code');
-            nameEl            = document.querySelector('.stock-info h2');
-            priceEl           = document.querySelector('.current-price');
-            inputElement      = document.getElementById('stockInput');
-            suggestionsElement= document.getElementById('suggestions');
-            submitBtn         = document.getElementById('submitBtn');
-
-            async function selectTradeType(type) {
-
-                tradeType = type;
-                buyBtn .classList.toggle('active', type === 'buy');
-                sellBtn.classList.toggle('active', type === 'sell');
-
-                resetStockSelection();
-
-                const bankRow   = document.querySelector('#bankBalance').closest('.amount-row')
-
-                if (type === 'sell') {
-                    // 賣出模式：隱藏銀行餘額，顯示預估獲利
-                    bankRow.classList.add('hidden');
-
-                    // 3. 改第一／第二行的 label
-                    document.querySelector('.amount-section .amount-row:nth-child(1) .amount-label')
-                    .textContent = '預估賣出總金額';
-                    // document.querySelector('.amount-section .amount-row:nth-child(2) .amount-label')
-                    // .textContent = '預估獲利金額';
-                    // 改 Label（這段你已經有）
-                    document.querySelector('.quantity-label').textContent                                 = '庫存數量（1000股為單位）';
-                } else {
-
-                    // 買進模式：顯示銀行餘額，隱藏預估獲利
-                    bankRow.classList.remove('hidden');
-
-                    document.querySelector('.quantity-label').textContent                                 = '數量（1000股為單位）';
-                    document.querySelector('.amount-row:first-child .amount-label').textContent           = '預估金額';
-                    document.querySelector('.amount-row:nth-child(2) .amount-label').textContent          = '銀行餘額';
-                }
-                }
-
-            // 4. 綁定按鈕
-            buyBtn.addEventListener('click', () => selectTradeType('buy'));
-            sellBtn.addEventListener('click', () => selectTradeType('sell'));
-
-            // 先看 localStorage 是否有 activeTab
-            const active = localStorage.getItem('activeTab');
-            if (active) {
-                switchTab(active);                // 切到使用者欲停留的 tab
-                localStorage.removeItem('activeTab');  // 清掉 flag
-            } else {
-                // 原本預設 tab
-                switchTab('investments');
-            }
-
-            fetchAndDisplayNTDBalance();  // 新增這行：載入台幣帳戶餘額
-
-            // 再載入持倉
-            loadMyInvestments();
-
-
-            let currentHoldings = {
-                // symbol: { quantity: 張數, avgCost: 每股成本 }
-            };
-
-            async function loadMyInvestments() {
-                try {
-                    // 1. 取持倉
-                    const res = await fetch('/investments/api/my_holdings/', {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                        }
-                    });
-                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                    const orders = await res.json(); // [{id, symbol, name, unit_price, quantity}, ...]
-
-                    // 2. 對每筆 order 去抓 quote，並組成一個 array of Promises
-                    const detailed = await Promise.all(orders.map(async order => {
-                        const qRes = await fetch(`/investments/api/twse_quote/?symbol=${encodeURIComponent(order.symbol)}`);
-                        const qData = await qRes.json();
-                        const price = parseFloat(qData.price) || 0;
-                        const shares = order.quantity * 1000;
-                        const cost  = order.unit_price * shares;
-                        const value = price * shares;
-                        return {
-                            ...order,
-                            shares,
-                            currentPrice: price,
-                            cost,
-                            value,
-                            profit: value - cost
-                        };
-                    }));
-
-                    // 3. 計算總成本、總市值、總損益
-                    const totalCost  = detailed.reduce((sum, x) => sum + x.cost, 0);
-                    const totalValue = detailed.reduce((sum, x) => sum + x.value, 0);
-                    const totalProf  = totalValue - totalCost;
-
-                    // 4. 更新 stat 卡片
-                    document.getElementById('totalEstimatedCost').textContent = `$${totalCost.toLocaleString()}`;
-                    document.getElementById('totalEstimatedValue').textContent = `$${totalValue.toLocaleString()}`;
-                    const profitEl = document.getElementById('totalProfit');
-                    profitEl.textContent = `${totalProf >= 0 ? '+' : '-'}$${Math.abs(totalProf).toLocaleString()} (${totalCost>0?((totalProf/totalCost)*100).toFixed(2):'0'}%)`;
-                    profitEl.className = `stat-value ${totalProf>=0?'positive':'negative'}`;
-
-                    // 5. 最後再把列表 render 出來
-                    const grid = document.querySelector('.investment-grid');
-                    grid.innerHTML = '';
-                    detailed.forEach(d => appendInvestmentItem(d, grid));
-
-                } catch (err) {
-                    console.error('載入持倉失敗', err);
-                }
-            }
-
-            function appendInvestmentItem(d, container) {
-                const item = document.createElement('div');
-                item.className = 'investment-item';
-                item.innerHTML = `
-                    <div class="investment-header">
-                    <div class="investment-name">${d.name} (${d.symbol})</div>
-                    <div class="investment-type">股票</div>
-                    </div>
-                    <div class="investment-details">
-                    <div class="detail-row">
-                        <span class="detail-label">持有股數</span>
-                        <span class="detail-value">${d.shares.toLocaleString()} 股</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">平均成本</span>
-                        <span class="detail-value">$${(d.cost/d.shares).toLocaleString()}</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">目前股價</span>
-                        <span class="detail-value">$${d.currentPrice.toLocaleString()}</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">損益</span>
-                        <span class="detail-value ${d.profit>=0 ? 'positive' : 'negative'}">
-                        ${d.profit>=0 ? '+' : '-'}$${Math.abs(d.profit).toLocaleString()} (${d.cost>0?((d.profit/d.cost)*100).toFixed(2):'0'}%)
-                        </span>
-                    </div>
-                    </div>
-                `;
-                container.appendChild(item);
-            }
-
-
-
-            // debounce 工具函式，避免頻繁呼叫後端
-            function debounce(fn, delay = 300) {
-                let timer = null;
-                return (...args) => {
-                    clearTimeout(timer);
-                    timer = setTimeout(() => fn(...args), delay);
-                };
-            }
-
-            async function fetchAndDisplayNTDBalance() {
-                try {
-                    const res = await fetch('/api/v1/accounts/?category=ntd', {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-
-                    if (!res.ok) throw new Error('取得銀行餘額失敗');
-
-                    const accounts = await res.json();
-                    if (!accounts.length) {
-                        console.warn('找不到台幣帳戶');
-                        return;
-                    }
-
-                    const ntdAccount = accounts[0];
-                    const balance = Number(ntdAccount.balance || 0).toLocaleString();
-                    document.getElementById('bankBalance').textContent = `${balance}`;
-                } catch (error) {
-                    console.error('載入銀行餘額錯誤：', error);
-                    document.getElementById('bankBalance').textContent = '取得失敗';
-                }
-            }
-
-
-
-            // 監聽使用者在輸入框中輸入，debounce 後向後端查詢
-            inputElement.addEventListener(
-                "input",
-                    debounce(async (e) => {
-                    const q = e.target.value.trim();
-                    if (!q) {
-                        suggestionsElement.classList.add("hidden");
-                        return;
-                    }
-                    try {
-                        const res = await fetch(
-                            `/investments/api/twse_symbol_search/?q=${encodeURIComponent(q)}`
-                        );
-                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                        const js = await res.json();
-                        const results = js.results || [];
-                        if (results.length > 0) {
-                            renderSuggestions(results);
-                            suggestionsElement.classList.remove("hidden");
-                        } else {
-                            suggestionsElement.classList.add("hidden");
-                        }
-                    } catch (err) {
-                        console.error("twse_symbol_search 發生錯誤：", err);
-                        suggestionsElement.classList.add("hidden");
-                    }
-                }, 400)
-            );
-
-            document.addEventListener("click", function (event) {
-                if (
-                    !inputElement.contains(event.target) &&
-                    !suggestionsElement.contains(event.target)
-                ) {
-                    suggestionsElement.classList.add("hidden");
-                }
-            });
-
-            // 1. renderSuggestions 傳 name
-            function renderSuggestions(results) {
-                suggestionsElement.innerHTML = "";
-                results.slice(0, 30).forEach(({ symbol, name }) => {
-                    const item = document.createElement("div");
-                    item.className = "suggestion-item";
-                    item.textContent = `${symbol} - ${name}`;
-                    // 傳入 symbol 和 name
-                    item.addEventListener("click", () => selectStock(symbol, name));
-                    suggestionsElement.appendChild(item);
-                });
-            }
-
-            async function selectStock(symbol, name) {
-                // 隱藏 suggestions
-                inputElement.value = symbol;
-                suggestionsElement.classList.add("hidden");
-
-                // 先隱藏 header，等確定可顯示再打開
-                const headerEl = document.getElementById("stockHeader");
-                headerEl.style.display = "none";
-
-                // 更新標的名稱＆代碼
-                document.querySelector(".stock-info h2").textContent = name;
-                document.querySelector(".stock-code").textContent = symbol;
-
-                // 重置「預估金額」顯示
-                estimatedEl.textContent = "–";
-
-                // 開啟 header
-                // headerEl.style.display = "";
-
-                // 根據買／賣初始化數量與上下限
-                if (tradeType === 'sell') {
-                    let holdings;
-                    try {
-                        const res = await fetch('/investments/api/my_aggregated_holdings/', {
-                            headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}` }
-                        });
-                        holdings = await res.json();
-                    } catch (err) {
-                        return showToast('載入持倉失敗，請稍後再試', 'error');
-                    }
-                    // 建 map
-                    currentHoldings = holdings.reduce((acc, h) => {
-                        acc[h.symbol] = { quantity: h.total_quantity, avgCost: parseFloat(h.average_cost) };
-                        return acc;
-                    }, {});
-
-                    const hold = currentHoldings[symbol];
-                    if (!hold || hold.quantity <= 0) {
-                        // 賣出卻沒庫存 → 不顯示 header，也不往下跑任何顯示現價的流程
-                        return showToast('尚未持有此股票，無法賣出', 'error');
-                    }
-                    else{
-                        // 賣出且有庫存，才顯示 header
-                        headerEl.style.display = "";
-                        // 賣出模式：maxQty = 持倉數量
-                        maxQty = currentHoldings[symbol].quantity;
-                        quantityEl.textContent = maxQty;  // 一開始顯示全數
-
-                        // － 按鈕：只有當數量 > 1 才可用
-                        decreaseBtn.disabled = (maxQty <= 1);
-                        // ＋ 按鈕：剛好到最大庫存，必須禁用
-                        increaseBtn.disabled = true;
-                    }
-
-                } else {
-                    headerEl.style.display = "";
-                    // 買進初始化
-                    maxQty = Infinity;
-                    quantityEl.textContent = '1';
-
-                    decreaseBtn.disabled = true;   // 不能再小於 1
-                    increaseBtn.disabled = false;  // 可無限制加
-                }
-
-                // 解鎖下單按鈕
-                if (submitBtn) submitBtn.disabled = false;
-
-                // 取得最新報價
-                let data;
-                try {
-                    const qRes = await fetch(`/investments/api/twse_quote/?symbol=${encodeURIComponent(symbol)}`);
-                    if (!qRes.ok) throw new Error(`HTTP ${qRes.status}`);
-                    data = await qRes.json();
-                    if (data.error) throw new Error(data.error);
-                } catch (err) {
-                    console.error("fetch twse_quote 發生錯誤：", err);
-                    return showToast('無法取得報價，請稍後再試', 'error');
-                }
-
-                // 更新「目前股價」
-                const price = parseFloat(data.price) || 0;
-                document.querySelector(".current-price").textContent = price.toLocaleString();
-
-                // 更新「漲跌幅」
-                const changeValue = parseFloat(data.change);
-                const sign = changeValue > 0 ? "+" : "";
-                const priceChangeEl = document.querySelector(".price-change");
-                priceChangeEl.textContent = `${sign}${data.change} (${data.percent})`;
-                priceChangeEl.className = `price-change ${
-                    changeValue > 0 ? "positive" : changeValue < 0 ? "negative" : ""
-                }`;
-
-                // 最後計算並顯示預估金額或預估賣出金額／獲利
-                updateAmountDisplays();
-            }
-
-        });
-
-
-
-    </script>
-
-  </body>
 </html>

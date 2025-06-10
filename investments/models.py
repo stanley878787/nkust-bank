@@ -1,4 +1,4 @@
-# Create your models here.
+# investments/models.py
 from django.db import models
 from django.conf import settings
 
@@ -7,7 +7,7 @@ class Order(models.Model):
     symbol      = models.CharField("股票代號", max_length=20)
     name        = models.CharField("股票名稱", max_length=100)
     unit_price  = models.DecimalField("當時單價", max_digits=12, decimal_places=2)
-    quantity    = models.PositiveIntegerField("千股單位數量")
+    quantity    = models.IntegerField("千股單位數量")
     total       = models.DecimalField("總金額", max_digits=14, decimal_places=2)
     created_at  = models.DateTimeField("下單時間", auto_now_add=True)
 

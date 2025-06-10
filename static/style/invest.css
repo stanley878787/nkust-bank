@@ -1,108 +1,266 @@
 .avatar {
-  /* 預設可以讓背景置中、截圖、切圓形... */
-  background-size: cover;
-  background-position: center;
-  border-radius: 9999px; /* 對應 Tailwind 的 rounded-full */
-  background-repeat: no-repeat;
+    /* 預設可以讓背景置中、截圖、切圓形... */
+    background-size: cover;
+    background-position: center;
+    border-radius: 9999px;
+    /* 對應 Tailwind 的 rounded-full */
+    background-repeat: no-repeat;
 }
+
 .stock-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
 }
+
 .stock-info h2 {
-  margin: 0;
-  font-size: 1.25rem;
+    margin: 0;
+    font-size: 1.25rem;
 }
+
 .stock-code {
-  font-size: 1rem;
-  color: #ffffff;
+    font-size: 1rem;
+    color: #ffffff;
 }
+
 .stock-price {
-  text-align: right;
+    text-align: right;
 }
+
 .current-price {
-  font-size: 1.5rem;
-  font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
+
 .price-change.positive {
-  color: #228B22;
-  font:bold;
+    color: #ef4444;
+    font: bold;
 }
+
 .price-change.negative {
-  color: #B22222;
-  font:bold;
+    color: #22c55e;
+    font: bold;
 }
 
 /* Toast 本體，預設隱藏 */
 #toast {
-  position: fixed;
-  right: 1rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.25rem;
-  font-weight: bold;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 9999;
+    position: fixed;
+    right: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9999;
 }
 
 /* 顯示時 */
 #toast.show {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* 成功樣式：綠底白字 */
 #toast.toast-success {
-  background-color: #d4edda;
-  color: #155724;
+    background-color: #d4edda;
+    color: #155724;
 }
 
 /* 錯誤樣式：紅底白字 */
 #toast.toast-error {
-  background-color: #f8d7da;
-  color: #721c24;
+    background-color: #f8d7da;
+    color: #721c24;
 }
 
 
 /* 買進按鈕被選中 */
 .trade-btn.buy-btn.active {
-  background-color: #22c55e;
-  color: #fff;
-  box-shadow: none !important;
+    background-color: #ef4444;
+    color: #fff;
+    box-shadow: none !important;
 }
 
 /* 賣出按鈕被選中（active）時：鮮豔紅 */
 .trade-btn.sell-btn.active {
-  background-color: #ef4444;
-  color: #fff;
+    background-color: #22c55e;
+    color: #fff;
 }
 
 .trade-btn {
-  background-color: #334155;  /* 淺灰 */
-  color: #ffffff;             /* 深灰字 */
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    background-color: #334155;
+    /* 淺灰 */
+    color: #ffffff;
+    /* 深灰字 */
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.buy-btn:hover {
-  background: #16a34a;
-  transform: translateY(-2px);
+.trade-btn.active {
+  background-color: #ef4444; 
+  color: #fff;
 }
 
-.sell-btn:hover {
+.trade-btn.active.sell {
+  background-color: #22c55e; 
+  color: #fff;
+}
+
+.buy-btn:not(.btn-disabled):hover {
   background: #ef4444;
   transform: translateY(-2px);
 }
 
+.sell-btn:not(.btn-disabled):hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
 .hidden {
-  display: none !important;
+    display: none !important;
+}
+
+.suggestion-item {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-align: left;
+    /* 文字靠左 */
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #e0f2fe;
+}
+
+/* 以下為下拉清單容器樣式 */
+.suggestions-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#suggestions {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+#suggestions.hidden {
+    display: none;
+}
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+.submit-btn {
+    background-color: #ccc;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    cursor: not-allowed;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:not(.btn-disabled) {
+    cursor: pointer;
+}
+
+.submit-btn.btn-disabled.btn-buy,
+.submit-btn.btn-disabled.btn-sell {
+    background-color: #ccc !important;
+}
+
+.submit-btn.btn-disabled {
+    background-color: #a0aec0 !important;
+    color: #fff;
+    cursor: not-allowed;
+}
+
+.submit-btn.btn-buy {
+    background-color: #ef4444 !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+.submit-btn.btn-sell {
+    background-color: #22c55e !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+
+#trading-section .submit-btn.btn-buy {
+  background: #ef4444 !important;
+}
+
+#trading-section .submit-btn.btn-sell {
+  background: #22c55e !important;
+}
+
+#trading-section .submit-btn.btn-disabled {
+  background: #a0aec0 !important;
+  cursor: not-allowed;
+}
+
+#trading-section .submit-btn.btn-buy:not(.btn-disabled) {
+  background: #ef4444 !important;
+  cursor: pointer;
+}
+
+#trading-section .submit-btn.btn-sell:not(.btn-disabled) {
+  background: #22c55e !important;
+  cursor: pointer;
+}
+
+.trade-btn.btn-disabled {
+  background-color: #a0aec0 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.trade-btn.btn-disabled:hover {
+  background-color: #a0aec0 !important;
+  transform: none !important;
+  pointer-events:none
+}
+
+.trade-btn[disabled] {
+  background-color: #a0aec0 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  filter: grayscale(100%);
+}
+
+.trade-btn[disabled]:hover {
+  background-color: #a0aec0 !important;
+  transform: none !important;
 }
