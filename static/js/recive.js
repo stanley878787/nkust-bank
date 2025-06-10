@@ -150,6 +150,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             </svg>
             `;
       }
+      else if (titleText.includes("帳戶")) {
+        iconEl.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M7 7h13v2H7v3L2 8l5-4v3zm10 10H4v-2h13v-3l5 4-5 4v-3z"/>
+            </svg>
+
+            `;
+      }
       else if (titleText.includes("轉入") || titleText.includes("轉出")) {
         iconEl.innerHTML = `
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="24" height="24" viewBox="0 0 24 24">
