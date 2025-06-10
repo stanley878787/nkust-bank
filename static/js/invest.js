@@ -127,7 +127,11 @@ function submitOrder() {
     .then(json => {
       // 1) 顯示成功訊息，持續 1.5 秒
       const duration = 1500;
-      showToast("下單成功！", "success", duration);
+      if (tradeType === 'buy') {
+        showToast("買入成功！", "success", duration);
+      } else {
+        showToast("賣出成功！", "success", duration);
+      }
 
       // ✅ 加這一行來即時更新銀行餘額
       fetchAndDisplayInvestBalance();

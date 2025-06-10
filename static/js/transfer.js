@@ -1,4 +1,23 @@
 /* static/js/transfer.js */
+
+function showToast(message, type = "success", duration = 3000) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+
+  // 移除舊的 type class
+  toast.classList.remove("toast-success", "toast-error", "show");
+
+  // 加上新的 type
+  toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+  // 顯示
+  toast.classList.add("show");
+
+  // 一段時間後隱藏
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, duration);
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const token = localStorage.getItem("accessToken");
   if (!token) return location.href = "/login/";
@@ -10,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     fetch(url, {
       ...opt,
       headers: { "Authorization": `Bearer ${token}`,
-                 "Content-Type": "application/json" }
+                  "Content-Type": "application/json" }
     });
 
   // 1) 把自己的帳戶塞到 select
@@ -39,14 +58,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         body: JSON.stringify(body)
       });
       if(r.ok){
-        alert("轉帳成功！");
-        location.reload();
+        const duration = 1500;
+        showToast("轉帳成功！", "success", duration);
+        // 重新整理頁面
+        setTimeout(() => {
+          window.location.reload();
+        }, duration);
       }else{
+        // 拿到後端回傳的 JSON 錯誤
         const err = await r.json();
-        alert(err.detail || JSON.stringify(err));
+        // 優先取 non_field_errors 陣列中的第一個字串，再 fallback 到 detail 或 message
+        const errorMsg =
+          (Array.isArray(err.non_field_errors) && err.non_field_errors.length > 0
+            ? err.non_field_errors[0]
+            : null)
+          || err.detail
+          || err.message
+          || JSON.stringify(err);
+        const duration = 3000;
+        showToast(errorMsg, "error", duration);
       }
     }catch(err){
-      alert("伺服器未回應");
+      const duration = 1500;
+      showToast("伺服器未回應", "error", duration);
     }
   });
 });
